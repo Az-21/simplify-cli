@@ -13,14 +13,14 @@ public static class Scan
   }
 
   // Crawl the directory to find files with required extension
-  public static IEnumerable<string> Files(string path, in JsonConfig prefs)
+  public static IEnumerable<string> Files(string path)
   {
     // Invalid path check
     CheckIfDirectoryExists(path);
 
     // Load files in the directory
-    string[] extensionList = Process.ConvertToExtensionList(in prefs);
-    IEnumerable<string> files = prefs.GetAllDirectories ?
+    string[] extensionList = Process.ConvertToExtensionList();
+    IEnumerable<string> files = Global.ImmutableConfig.GetAllDirectories ?
         extensionList.SelectMany(f => Directory.GetFiles(path, f, SearchOption.AllDirectories)) :
         extensionList.SelectMany(f => Directory.GetFiles(path, f, SearchOption.TopDirectoryOnly));
 
@@ -28,16 +28,16 @@ public static class Scan
     if (!files.Any())
     {
       Print.InfoBlock();
-      Console.WriteLine($"No file found with extension [{Print.InfoText(prefs.Extensions)}] in {Print.InfoText(path)}");
+      Console.WriteLine($"No file found with extension [{Print.InfoText(Global.ImmutableConfig.Extensions)}] in {Print.InfoText(path)}");
     }
 
     return files;
   }
 
   // Crawl the directory to find folders and subfolders
-  public static string[] Folders(string path, in JsonConfig prefs)
+  public static string[] Folders(string path)
   {
-    string[] folders = prefs.GetAllDirectories ?
+    string[] folders = Global.ImmutableConfig.GetAllDirectories ?
         Directory.GetDirectories(path, "*", SearchOption.AllDirectories) :
         Directory.GetDirectories(path, "*", SearchOption.TopDirectoryOnly);
 

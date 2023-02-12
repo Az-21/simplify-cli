@@ -2,44 +2,43 @@
 
 public static class Rename
 {
-  private static void ApplySimplificationFunctions(ref string rename, in JsonConfig prefs)
+  private static void ApplySimplificationFunctions(ref string rename)
   {
-    // Order sensitive operations (first) [NOTE: all are call by reference] | prefs is const reference
-    Simplify.RemoveNumbers(ref rename, in prefs);
-    Simplify.AppendYearPre(ref rename, in prefs);
+    // Order sensitive operations (first)
+    Simplify.RemoveNumbers(ref rename);
+    Simplify.AppendYearPre(ref rename);
 
-    // Order insensitive operations [NOTE: all are call by reference] | prefs is const reference
-    Simplify.RemoveCurvedBracket(ref rename, in prefs);
-    Simplify.RemoveSquareBracket(ref rename, in prefs);
-    Function.RemoveBlacklistedWords(ref rename, in prefs);
-    Simplify.RemoveNonASCII(ref rename, in prefs);
+    // Order insensitive operations
+    Simplify.RemoveCurvedBracket(ref rename);
+    Simplify.RemoveSquareBracket(ref rename);
+    Function.RemoveBlacklistedWords(ref rename);
+    Simplify.RemoveNonASCII(ref rename);
 
-    // Order sensitive operations (last) [NOTE: all are call by reference] | prefs is const reference
-    Simplify.AppendYearPost(ref rename, in prefs);
-    Simplify.SmartEpisodeDash(ref rename, in prefs);
+    // Order sensitive operations (last)
+    Simplify.AppendYearPost(ref rename);
+    Simplify.SmartEpisodeDash(ref rename);
     Simplify.ReduceWhitespace(ref rename);
-    Simplify.ConvertToSentenceCase(ref rename, in prefs);
-    Simplify.OptimizeArticles(ref rename, in prefs);
-    Simplify.ConvertToCliFriendly(ref rename, in prefs);
-    Simplify.ConvertToLowercase(ref rename, in prefs);
+    Simplify.ConvertToSentenceCase(ref rename);
+    Simplify.OptimizeArticles(ref rename);
+    Simplify.ConvertToCliFriendly(ref rename);
+    Simplify.ConvertToLowercase(ref rename);
   }
 
-  public static void SimplifyFile(in JsonConfig prefs, in RuntimeConfig runtimePreferences, string fullPath, ref Counter counter)
+  public static void SimplifyFile(in RuntimeConfig runtimePreferences, string fullPath)
   {
     // Create file metadata object [creates an immutable object (record)]
     var file = new FileMetadata(fullPath.Replace('\\', '/'));
     string rename = file.Name;
-    ApplySimplificationFunctions(ref rename, prefs);
+    ApplySimplificationFunctions(ref rename);
 
     // Full address of processed filename
     string simplifiedFileAddress = $"{file.Directory}/{rename}{file.Extension}";
-
 
     // Already simplified form
     if (file.Name == rename)
     {
       Print.NoFileChangeRequired(file);
-      counter.Unchanged++;
+      Global.MutableCounter.Unchanged++;
     }
 
     // Rename conflict
@@ -54,14 +53,14 @@ public static class Rename
           File.Move($"{file.Directory}/TEMP_SIMPLIFY_RENAME", simplifiedFileAddress);
         }
         Print.FileSuccess(file, rename);
-        counter.Renamed++;
+        Global.MutableCounter.Renamed++;
       }
 
       // Actual conflict
       else
       {
         Print.FileRenameConflict(file, rename);
-        counter.Conflict++;
+        Global.MutableCounter.Conflict++;
       }
     }
 
@@ -70,16 +69,16 @@ public static class Rename
     {
       Print.FileSuccess(file, rename);
       if (runtimePreferences.MakeChangesPermanent) { File.Move(file.FullPath, simplifiedFileAddress); }
-      counter.Renamed++;
+      Global.MutableCounter.Renamed++;
     }
   }
 
-  public static void SimplifyFolder(in JsonConfig prefs, in RuntimeConfig runtimePreferences, string fullPath, ref Counter counter)
+  public static void SimplifyFolder(in RuntimeConfig runtimePreferences, string fullPath)
   {
     // Create folder metadata object [creates an immutable object (record)]
     var folder = new FolderMetadata(fullPath.Replace('\\', '/'));
     string rename = folder.Name;
-    ApplySimplificationFunctions(ref rename, in prefs);
+    ApplySimplificationFunctions(ref rename);
 
     // Full address of processed filename
     string simplifiedFolderAddress = $"{folder.ParentDirectory}/{rename}";
@@ -88,7 +87,7 @@ public static class Rename
     if (folder.Name == rename)
     {
       Print.NoFolderChangeRequired(folder);
-      counter.Unchanged++;
+      Global.MutableCounter.Unchanged++;
     }
 
     // Rename conflict
@@ -103,14 +102,14 @@ public static class Rename
           Directory.Move($"{folder.FullPath}_TEMP_SIMPLIFY_RENAME", simplifiedFolderAddress);
         }
         Print.FolderSuccess(folder, rename);
-        counter.Renamed++;
+        Global.MutableCounter.Renamed++;
       }
 
       // Actual conflict
       else
       {
         Print.FolderRenameConflict(folder, rename);
-        counter.Conflict++;
+        Global.MutableCounter.Conflict++;
       }
     }
 
@@ -119,7 +118,7 @@ public static class Rename
     {
       Print.FolderSuccess(folder, rename);
       if (runtimePreferences.MakeChangesPermanent) { Directory.Move(folder.FullPath, simplifiedFolderAddress); }
-      counter.Renamed++;
+      Global.MutableCounter.Renamed++;
     }
   }
 }

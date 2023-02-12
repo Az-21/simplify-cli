@@ -140,11 +140,15 @@ public static class Print
   }
 
   // Print results and stats
-  public static void Results(int countRenamed, int countConflict, int countUnchanged)
+  public static void Results()
   {
+    string renamed = Global.MutableCounter.Renamed.ToString();
+    string unchanged = Global.MutableCounter.Unchanged.ToString();
+    string conflict = Global.MutableCounter.Conflict.ToString();
+
     Console.WriteLine("\n SUMMARY ".Pastel(white).PastelBg(gray));
-    Console.WriteLine($"Renamed files: {SuccessText(countRenamed.ToString())}");
-    Console.WriteLine($"Already simplified : {InfoText(countUnchanged.ToString())}");
-    Console.WriteLine($"Rename conflicts: {WarningText(countConflict.ToString())}");
+    Console.WriteLine($"Renamed files: {SuccessText(renamed)}");
+    Console.WriteLine($"Already simplified : {InfoText(unchanged)}");
+    Console.WriteLine($"Rename conflicts: {WarningText(conflict)}");
   }
 }

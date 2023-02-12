@@ -3,9 +3,9 @@
 public static class Process
 {
   // Convert comma separated extensions to array of extension with `.` (dot) prefix
-  public static string[] ConvertToExtensionList(in JsonConfig prefs)
+  public static string[] ConvertToExtensionList()
   {
-    return prefs.Extensions
+    return Global.ImmutableConfig.Extensions
         .Split(',')
         .Select(x => $"*.{x.Trim()}")
         .ToArray();

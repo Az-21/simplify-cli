@@ -5,8 +5,6 @@ namespace Test;
 [TestClass]
 public class UnitTestRemoveBlacklistedWords
 {
-  readonly JsonConfig config = Preferences.LoadConfig();
-
   [TestMethod]
   public void Test1()
   {
@@ -15,7 +13,7 @@ public class UnitTestRemoveBlacklistedWords
     const string expected = "(lambda) ( ) ( ) ( )";
 
     // Test
-    Function.RemoveBlacklistedWords(ref filename, in config);
+    Function.RemoveBlacklistedWords(ref filename);
     Assert.AreEqual(expected, filename);
   }
 
@@ -27,7 +25,7 @@ public class UnitTestRemoveBlacklistedWords
     const string expected = "x   x";
 
     // Test
-    Function.RemoveBlacklistedWords(ref filename, in config);
+    Function.RemoveBlacklistedWords(ref filename);
     Assert.AreEqual(expected, filename);
   }
 
@@ -39,7 +37,7 @@ public class UnitTestRemoveBlacklistedWords
     const string expected = "HEVxC";
 
     // Test
-    Function.RemoveBlacklistedWords(ref filename, in config);
+    Function.RemoveBlacklistedWords(ref filename);
     Assert.AreEqual(expected, filename);
   }
 }
