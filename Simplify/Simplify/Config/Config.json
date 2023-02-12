@@ -1,0 +1,23 @@
+{
+  "_": "View readme at https://github.com/Az-21/filename-simplifier for more information",
+
+  "LibraryPath": "D:\\Testing",
+  "GetAllDirectories": true,
+  "Extensions": "mkv, mp4, srt, ass, avi, mov, mpeg",
+  "Blacklist": "., -, _, webrip, x256, HEVC, camrip, nogrp, ddp5, x264",
+
+  "RemoveCurvedBracket": true,
+  "RemoveSquareBracket": true,
+
+  "IsCliFriendly": false,
+  "CliSeparator": "-",
+
+  "SentenceCase": false,
+  "SmartCapitalization": true,
+  "OptimizeArticles": true,
+  "RemoveNonAscii": true,
+  "convertToLowercase": false,
+  "SmartEpisodeDash": true,
+  "RemoveNumbers": false,
+  "AppendYear": false
+}
