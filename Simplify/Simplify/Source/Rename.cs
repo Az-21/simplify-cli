@@ -2,40 +2,40 @@
 
 public static class Rename
 {
-  private static void ApplySimplificationFunctions(ref string rename)
+  private static void ApplySimplificationFunctions(ref string filename)
   {
     // Order sensitive operations (first)
-    Simplify.RemoveNumbers(ref rename);
-    Simplify.AppendYearPre(ref rename);
+    Simplify.RemoveNumbers(ref filename);
+    Simplify.AppendYearPre(ref filename);
 
     // Order insensitive operations
-    Simplify.RemoveCurvedBracket(ref rename);
-    Simplify.RemoveSquareBracket(ref rename);
-    Function.RemoveBlacklistedWords(ref rename);
-    Simplify.RemoveNonASCII(ref rename);
+    Simplify.RemoveCurvedBracket(ref filename);
+    Simplify.RemoveSquareBracket(ref filename);
+    Function.RemoveBlacklistedWords(ref filename);
+    Simplify.RemoveNonASCII(ref filename);
 
     // Order sensitive operations (last)
-    Simplify.AppendYearPost(ref rename);
-    Simplify.SmartEpisodeDash(ref rename);
-    Simplify.ReduceWhitespace(ref rename);
-    Simplify.ConvertToSentenceCase(ref rename);
-    Simplify.OptimizeArticles(ref rename);
-    Simplify.ConvertToCliFriendly(ref rename);
-    Simplify.ConvertToLowercase(ref rename);
+    Simplify.AppendYearPost(ref filename);
+    Simplify.SmartEpisodeDash(ref filename);
+    Simplify.ReduceWhitespace(ref filename);
+    Simplify.ConvertToSentenceCase(ref filename);
+    Simplify.OptimizeArticles(ref filename);
+    Simplify.ConvertToCliFriendly(ref filename);
+    Simplify.ConvertToLowercase(ref filename);
   }
 
   public static void SimplifyFile(in RuntimeConfig runtimePreferences, string fullPath)
   {
     // Create file metadata object [creates an immutable object (record)]
     var file = new FileMetadata(fullPath.Replace('\\', '/'));
-    string rename = file.Name;
-    ApplySimplificationFunctions(ref rename);
+    string filename = file.Name;
+    ApplySimplificationFunctions(ref filename);
 
     // Full address of processed filename
-    string simplifiedFileAddress = $"{file.Directory}/{rename}{file.Extension}";
+    string simplifiedFileAddress = $"{file.Directory}/{filename}{file.Extension}";
 
     // Already simplified form
-    if (file.Name == rename)
+    if (file.Name == filename)
     {
       Print.NoFileChangeRequired(file);
       Global.MutableCounter.Unchanged++;
@@ -45,21 +45,21 @@ public static class Rename
     else if (File.Exists(simplifiedFileAddress))
     {
       // Check for Windows specific case-insensitive directory
-      if (string.Equals(file.Name, rename, StringComparison.OrdinalIgnoreCase))
+      if (string.Equals(file.Name, filename, StringComparison.OrdinalIgnoreCase))
       {
         if (runtimePreferences.MakeChangesPermanent)
         {
           File.Move(file.FullPath, $"{file.Directory}/TEMP_SIMPLIFY_RENAME");
           File.Move($"{file.Directory}/TEMP_SIMPLIFY_RENAME", simplifiedFileAddress);
         }
-        Print.FileSuccess(file, rename);
+        Print.FileSuccess(file, filename);
         Global.MutableCounter.Renamed++;
       }
 
       // Actual conflict
       else
       {
-        Print.FileRenameConflict(file, rename);
+        Print.FileRenameConflict(file, filename);
         Global.MutableCounter.Conflict++;
       }
     }
@@ -67,7 +67,7 @@ public static class Rename
     // Can be renamed without any conflict
     else
     {
-      Print.FileSuccess(file, rename);
+      Print.FileSuccess(file, filename);
       if (runtimePreferences.MakeChangesPermanent) { File.Move(file.FullPath, simplifiedFileAddress); }
       Global.MutableCounter.Renamed++;
     }
@@ -98,6 +98,8 @@ public static class Rename
       {
         if (runtimePreferences.MakeChangesPermanent)
         {
+          // A -> B -> C is done to prevent case-insensitive rename
+          // Direct A -> C may result in `FOLDER` -> `Folder` which will throw an exception
           Directory.Move(folder.FullPath, $"{folder.FullPath}_TEMP_SIMPLIFY_RENAME");
           Directory.Move($"{folder.FullPath}_TEMP_SIMPLIFY_RENAME", simplifiedFolderAddress);
         }
