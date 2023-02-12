@@ -2,9 +2,10 @@
 
 namespace Simplify;
 
-// Class to hold runtime preferences not found in config.json
-public sealed record class RuntimePreferences(bool MakeChangesPermanent, bool RenameFolders);
+// Class to hold runtime config passed via CLI (not present in Config.json)
+public sealed record class RuntimeConfig(bool MakeChangesPermanent, bool RenameFolders);
 
+// Class to hold deserialized JSON preferences in Config.json
 public static class Preferences
 {
   // Load preferences from 'config.json'

@@ -6,57 +6,47 @@ static class MainProgram
 
   public static void Main(string[] args)
   {
-    // Process input arguments
-    bool includeFolders = false;
-    bool makeChangesPermanent = false;
+    // Parse library path from CLI. Defaults to path in Config.json
+    string LibraryPath = Source.Parse.CommandLineArguments.ParseWorkingDirectory(args, Config);
 
-    string libraryPath = Config.LibraryPath;
-    if (args.Any())
-    {
-      if (args[0].Replace('\\', '/').Contains('/'))
-      {
-        libraryPath = args[0]; // if path is provided by argument, overrule config.json path
-      }
-      Console.WriteLine($"\nLibrary path: {Print.InfoText(libraryPath)}");
+    // Parse runtime config flags from CLI
+    RuntimeConfig RuntimeFlag = Source.Parse.CommandLineArguments.ParseFlags(args);
 
-      // Flags
-      string cliFlags = string.Join(" ", args).ToLowerInvariant();
-
-      if (cliFlags.Contains("--rename")) { makeChangesPermanent = true; }
-      if (cliFlags.Contains("--includefolders")) { includeFolders = true; }
-    }
-
-    // Update runtime preferences
-    RuntimePreferences runtimePreferences = new(makeChangesPermanent, includeFolders);
-
-    // Init counters (unchanged, conflict, renamed)
-    Counter counter = new();
+    // Initialize counters for unchanged, conflict, renamed files (0, 0, 0)
+    Counter AffectedCounter = new();
 
     // Rename folders
-    if (runtimePreferences.RenameFolders)
+    if (RuntimeFlag.RenameFolders)
     {
-      string[] folders = Scan.Folders(libraryPath, Config);
-      if (folders.Any() && Print.FolderConfirmation(folders, makeChangesPermanent))
+      string[] folders = Scan.Folders(LibraryPath, Config);
+      if (folders.Any() && Print.FolderConfirmation(folders, RuntimeFlag.MakeChangesPermanent))
       {
         for (int i = folders.Length - 1; i >= 0; i--)
         {
           // WARNING: Reversed loop order because innermost folder must be renamed first
           // Simplifying the outermost folder first will break address of inner folders
           string fullPath = folders[i];
-          Rename.SimplifyFolder(in Config, in runtimePreferences, fullPath, ref counter);
+          Rename.SimplifyFolder(in Config, in RuntimeFlag, fullPath, ref AffectedCounter);
         }
       }
       Console.WriteLine("\n\n");
     }
 
     // Rename files
-    var files = Scan.Files(libraryPath, in Config);
-    if (files.Any() && Print.FilesConfirmation(files, makeChangesPermanent))
+    var files = Scan.Files(LibraryPath, in Config);
+    if (files.Any() && Print.FilesConfirmation(files, RuntimeFlag.MakeChangesPermanent))
     {
-      foreach (string fullPath in files) { Rename.SimplifyFile(in Config, in runtimePreferences, fullPath, ref counter); }
+      foreach (string fullPath in files)
+      {
+        Rename.SimplifyFile(in Config, in RuntimeFlag, fullPath, ref AffectedCounter);
+      }
     }
 
     // Print results
-    Print.Results(counter.Renamed, counter.Conflict, counter.Unchanged);
+    Print.Results(
+      AffectedCounter.Renamed,
+      AffectedCounter.Conflict,
+      AffectedCounter.Unchanged
+    );
   }
 }

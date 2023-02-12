@@ -24,7 +24,7 @@ public static class Rename
     Simplify.ConvertToLowercase(ref rename, in prefs);
   }
 
-  public static void SimplifyFile(in JsonConfig prefs, in RuntimePreferences runtimePreferences, string fullPath, ref Counter counter)
+  public static void SimplifyFile(in JsonConfig prefs, in RuntimeConfig runtimePreferences, string fullPath, ref Counter counter)
   {
     // Create file metadata object [creates an immutable object (record)]
     var file = new FileMetadata(fullPath.Replace('\\', '/'));
@@ -74,7 +74,7 @@ public static class Rename
     }
   }
 
-  public static void SimplifyFolder(in JsonConfig prefs, in RuntimePreferences runtimePreferences, string fullPath, ref Counter counter)
+  public static void SimplifyFolder(in JsonConfig prefs, in RuntimeConfig runtimePreferences, string fullPath, ref Counter counter)
   {
     // Create folder metadata object [creates an immutable object (record)]
     var folder = new FolderMetadata(fullPath.Replace('\\', '/'));
