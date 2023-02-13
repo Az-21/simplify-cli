@@ -11,7 +11,7 @@ public static partial class Function
   public static void RemoveCurvedBrackets(ref string input, in bool removeCurvedBrackets)
   {
     if (!removeCurvedBrackets) { return; }
-    input = CurvedBracketContainerRegex().Replace(input, " ");
+    input = CurvedBracketContainerRegex().Replace(input, Space);
   }
 
   // Remove square brackets and its contents
@@ -21,7 +21,7 @@ public static partial class Function
   public static void RemoveSquareBrackets(ref string input, in bool removeSquareBrackets)
   {
     if (!removeSquareBrackets) { return; }
-    input = SquareBracketContainerRegex().Replace(input, " ");
+    input = SquareBracketContainerRegex().Replace(input, Space);
   }
 
   // Remove curved brackets and its contents
@@ -31,6 +31,6 @@ public static partial class Function
   public static void RemoveCurlyBrackets(ref string input, in bool removeCurlyBrackets)
   {
     if (!removeCurlyBrackets) { return; }
-    input = CurlyBracketContainerRegex().Replace(input, " ");
+    input = CurlyBracketContainerRegex().Replace(input, Space);
   }
 }
