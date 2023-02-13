@@ -8,9 +8,9 @@ public static partial class Function
   [GeneratedRegex("\\d")]
   private static partial Regex AnyNumberRegex();
 
-  public static void RemoveNumbers(ref string filename)
+  public static void RemoveNumbers(ref string input)
   {
     if (!Global.ImmutableConfig.RemoveNumbers) { return; }
-    filename = AnyNumberRegex().Replace(filename, string.Empty);
+    input = AnyNumberRegex().Replace(input, string.Empty);
   }
 }

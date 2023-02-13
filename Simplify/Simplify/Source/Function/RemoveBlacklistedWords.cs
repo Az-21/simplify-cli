@@ -5,7 +5,7 @@ namespace Simplify;
 public static partial class Function
 {
   private const string space = " ";
-  public static void RemoveBlacklistedWords(ref string filename)
+  public static void RemoveBlacklistedWords(ref string input)
   {
     string[] blacklist = Global.ImmutableConfig.Blacklist
       .Split(',')
@@ -14,7 +14,7 @@ public static partial class Function
 
     for (int i = 0; i < blacklist.Length; i++)
     {
-      filename = filename.Replace(
+      input = input.Replace(
         blacklist[i],
         space,
         (StringComparison)RegexOptions.IgnoreCase
