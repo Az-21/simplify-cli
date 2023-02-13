@@ -5,6 +5,7 @@
   "Extensions": "mkv, mp4, srt, ass, avi, mov, mpeg",
   "Blacklist": "., -, _, webrip, x256, HEVC, camrip, nogrp, ddp5, x264",
 
+  "RemoveCurlyBrackets": true,
   "RemoveCurvedBrackets": true,
   "RemoveSquareBrackets": true,
 

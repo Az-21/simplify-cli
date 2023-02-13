@@ -62,6 +62,7 @@ public sealed record class JsonConfig(
   bool GetAllDirectories,
   string Extensions,
   string Blacklist,
+  bool RemoveCurlyBrackets,
   bool RemoveCurvedBrackets,
   bool RemoveSquareBrackets,
   bool IsCliFriendly,
