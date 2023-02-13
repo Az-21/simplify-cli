@@ -21,7 +21,7 @@ public static class Rename
     Simplify.ConvertToSentenceCase(ref filename);
     Simplify.OptimizeArticles(ref filename);
     Simplify.ConvertToCliFriendly(ref filename);
-    Simplify.ConvertToLowercase(ref filename);
+    Function.ConvertToLowercase(ref filename, Global.ImmutableConfig.ConvertToLowercase);
   }
 
   public static void SimplifyFile(in RuntimeConfig runtimePreferences, string fullPath)

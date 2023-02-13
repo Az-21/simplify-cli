@@ -12,13 +12,6 @@ public static partial class Simplify
 // Order insensitive operations
 public static partial class Simplify
 {
-  // Convert to Lower Case
-  public static void ConvertToLowercase(ref string filename)
-  {
-    if (!Global.ImmutableConfig.ConvertToLowercase) { return; }
-    filename = filename.ToLowerInvariant();
-  }
-
   // Remove non-ASCII characters
   [GeneratedRegex("[^\\u0000-\\u007F]+")]
   private static partial Regex NonAsciiCharacterRegex();
