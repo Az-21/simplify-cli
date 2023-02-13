@@ -23,4 +23,14 @@ public static partial class Function
     if (!removeSquareBrackets) { return; }
     input = SquareBracketContainerRegex().Replace(input, " ");
   }
+
+  // Remove curved brackets and its contents
+  [GeneratedRegex(@" ?\[.*?\]")]
+  private static partial Regex CurlyBracketContainerRegex();
+
+  public static void RemoveCurlyBrackets(ref string input, in bool removeCurlyBrackets)
+  {
+    if (!removeCurlyBrackets) { return; }
+    input = CurlyBracketContainerRegex().Replace(input, " ");
+  }
 }
