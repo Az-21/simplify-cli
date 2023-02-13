@@ -10,6 +10,6 @@ public static partial class Function
   public static void RemoveNonAsciiCharacters(ref string input, in bool removeNonAsciiCharacters)
   {
     if (!removeNonAsciiCharacters) { return; }
-    input = NonAsciiCharacterRegex().Replace(input, string.Empty);
+    input = NonAsciiCharacterRegex().Replace(input, Space);
   }
 }
