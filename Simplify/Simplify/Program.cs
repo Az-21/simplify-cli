@@ -37,7 +37,7 @@ public static class MainProgram
     }
 
     // Rename files
-    var files = Scan.Files(LibraryPath);
+    IEnumerable<string> files = Scan.Files(LibraryPath);
     if (files.Any() && Print.FilesConfirmation(files, RuntimeFlag.MakeChangesPermanent))
     {
       foreach (string fullPath in files)
