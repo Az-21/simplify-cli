@@ -44,11 +44,15 @@ public static partial class Function
     // Check for unbalanced curved brackets | #opening != #closing
     if (!IsBracketBalanced(ref input, OpeningCurved, ClosingCurved)) { return; }
 
-    // If brackets are balanced, remove the innermost () bracket
-    input = CurvedBracketContainerRegex().Replace(input, Space);
+    // If brackets are balanced, remove the innermost () bracket to outermost (..()..) bracket
+    RecursivelyRemoveCurvedBrackets(ref input);
+  }
 
+  private static void RecursivelyRemoveCurvedBrackets(ref string input)
+  {
+    input = CurvedBracketContainerRegex().Replace(input, Space);
     // Rematch recursively to go from innermost () to outermost (...()...)
-    if (CurvedBracketContainerRegex().Match(input).Success) { RemoveCurvedBrackets(ref input, removeCurvedBrackets); }
+    if (CurvedBracketContainerRegex().Match(input).Success) { RecursivelyRemoveCurvedBrackets(ref input); }
   }
 }
 
@@ -66,11 +70,15 @@ public static partial class Function
     // Check for unbalanced square brackets | #opening != #closing
     if (!IsBracketBalanced(ref input, OpeningSquare, ClosingSquare)) { return; }
 
-    // If brackets are balanced, remove the innermost [] bracket
-    input = SquareBracketContainerRegex().Replace(input, Space);
+    // If brackets are balanced, remove the innermost [] bracket to outermost [..[]..] bracket
+    RecursivelyRemoveCurlyBrackets(ref input);
+  }
 
+  private static void RecursivelyRemoveCurlyBrackets(ref string input)
+  {
+    input = SquareBracketContainerRegex().Replace(input, Space);
     // Rematch recursively to go from innermost [] to outermost [...[]...]
-    if (SquareBracketContainerRegex().Match(input).Success) { RemoveSquareBrackets(ref input, removeSquareBrackets); }
+    if (SquareBracketContainerRegex().Match(input).Success) { RecursivelyRemoveCurlyBrackets(ref input); }
   }
 }
 
@@ -88,10 +96,14 @@ public static partial class Function
     // Check for unbalanced curly brackets | #opening != #closing
     if (!IsBracketBalanced(ref input, OpeningCurly, ClosingCurly)) { return; }
 
-    // If brackets are balanced, remove the innermost {} bracket
-    input = CurlyBracketContainerRegex().Replace(input, Space);
+    // If brackets are balanced, remove the innermost [] bracket to outermost [..[]..] bracket
+    RecursivelyRemoveSquareBrackets(ref input);
+  }
 
+  private static void RecursivelyRemoveSquareBrackets(ref string input)
+  {
+    input = CurlyBracketContainerRegex().Replace(input, Space);
     // Rematch recursively to go from innermost {} to outermost {...{}...}
-    if (CurlyBracketContainerRegex().Match(input).Success) { RemoveCurlyBrackets(ref input, removeCurlyBrackets); }
+    if (CurlyBracketContainerRegex().Match(input).Success) { RecursivelyRemoveSquareBrackets(ref input); }
   }
 }
