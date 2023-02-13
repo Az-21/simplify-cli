@@ -12,16 +12,6 @@ public static partial class Simplify
 // Order insensitive operations
 public static partial class Simplify
 {
-  // Remove non-ASCII characters
-  [GeneratedRegex("[^\\u0000-\\u007F]+")]
-  private static partial Regex NonAsciiCharacterRegex();
-
-  public static void RemoveNonASCII(ref string filename)
-  {
-    if (!Global.ImmutableConfig.RemoveNonAscii) { return; }
-    filename = NonAsciiCharacterRegex().Replace(filename, string.Empty);
-  }
-
   // Remove parentheses + text: `abc (def)` -> `abc  `
   [GeneratedRegex(" ?\\(.*?\\)")]
   private static partial Regex CurvedBracketRegex();

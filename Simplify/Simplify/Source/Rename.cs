@@ -12,7 +12,7 @@ public static class Rename
     Simplify.RemoveCurvedBracket(ref filename);
     Simplify.RemoveSquareBracket(ref filename);
     Function.RemoveBlacklistedWords(ref filename, Global.ImmutableConfig.Blacklist);
-    Simplify.RemoveNonASCII(ref filename);
+    Function.RemoveNonAsciiCharacters(ref filename, Global.ImmutableConfig.RemoveNonAscii);
 
     // Order sensitive operations (last)
     Function.AppendYearPost(ref filename, Global.ImmutableConfig.AppendYear);
