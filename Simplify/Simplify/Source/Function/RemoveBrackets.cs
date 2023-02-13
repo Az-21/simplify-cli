@@ -5,14 +5,14 @@ namespace Simplify;
 // Check for balanced pairs of brackets
 public static partial class Function
 {
-  const char OpeningCurly = '{';
-  const char ClosingCurly = '}';
+  const char LCurly = '{';
+  const char RCurly = '}';
 
-  const char OpeningCurved = '(';
-  const char ClosingCurved = ')';
+  const char LCurved = '(';
+  const char RCurved = ')';
 
-  const char OpeningSquare = '[';
-  const char ClosingSquare = ']';
+  const char LSquare = '[';
+  const char RSquare = ']';
 
   private static bool IsBracketBalanced(ref string input, char opening, char closing)
   {
@@ -30,80 +30,58 @@ public static partial class Function
   }
 }
 
-// Remove curly brackets and its contents
 public static partial class Function
 {
-  // Match innermost {} https://stackoverflow.com/a/49533163/17753137
-  [GeneratedRegex(@"\{(?:[^{}])*\}")]
-  private static partial Regex CurlyBracketContainerRegex();
-
-  public static void RemoveCurlyBrackets(ref string input, in bool removeCurlyBrackets)
+  public static void RemoveBrackets(ref string input, in bool removeBracket, char opening, char closing, Regex regex)
   {
-    if (!removeCurlyBrackets) { return; }
+    if (!removeBracket) { return; }
 
-    // Check for unbalanced curly brackets | #opening != #closing
-    if (!IsBracketBalanced(ref input, OpeningCurly, ClosingCurly)) { return; }
+    // Check for unbalanced brackets => #opening != #closing
+    if (!IsBracketBalanced(ref input, opening, closing)) { return; }
 
-    // If brackets are balanced, remove the innermost [] bracket to outermost [..[]..] bracket
-    RecursivelyRemoveSquareBrackets(ref input);
+    // If brackets are balanced, recursively remove pairs from innermost to outermost
+    RecursivelyRemoveBrackets(ref input, regex);
   }
 
-  private static void RecursivelyRemoveSquareBrackets(ref string input)
+  private static void RecursivelyRemoveBrackets(ref string input, in Regex regex)
   {
-    input = CurlyBracketContainerRegex().Replace(input, Space);
-    // Rematch recursively to go from innermost {} to outermost {...{}...}
-    if (CurlyBracketContainerRegex().Match(input).Success) { RecursivelyRemoveSquareBrackets(ref input); }
+    input = regex.Replace(input, Space);
+    // Rematch recursively to go from innermost bracket pair to outermost bracket pair
+    if (regex.Match(input).Success) { RecursivelyRemoveBrackets(ref input, regex); }
   }
 }
 
-// Remove curved brackets and its contents
+/* ℹ️
+ * Regex logic to find the innermost bracket pair
+ * https://stackoverflow.com/a/49533163/17753137
+ */
+
+// Remove curly brackets {} and its contents
 public static partial class Function
 {
-  // Match innermost () https://stackoverflow.com/a/49533163/17753137
-  [GeneratedRegex(@"\((?:[^()])*\)")]
-  private static partial Regex CurvedBracketContainerRegex();
+  [GeneratedRegex(@"\{(?:[^{}])*\}")] // ℹ️
+  private static partial Regex CurlyBracketRegex();
 
-  public static void RemoveCurvedBrackets(ref string input, in bool removeCurvedBrackets)
-  {
-    if (!removeCurvedBrackets) { return; }
-
-    // Check for unbalanced curved brackets | #opening != #closing
-    if (!IsBracketBalanced(ref input, OpeningCurved, ClosingCurved)) { return; }
-
-    // If brackets are balanced, remove the innermost () bracket to outermost (..()..) bracket
-    RecursivelyRemoveCurvedBrackets(ref input);
-  }
-
-  private static void RecursivelyRemoveCurvedBrackets(ref string input)
-  {
-    input = CurvedBracketContainerRegex().Replace(input, Space);
-    // Rematch recursively to go from innermost () to outermost (...()...)
-    if (CurvedBracketContainerRegex().Match(input).Success) { RecursivelyRemoveCurvedBrackets(ref input); }
-  }
+  public static void RemoveCurlyBrackets(ref string input, in bool removeCurlyBrackets) =>
+    RemoveBrackets(ref input, removeCurlyBrackets, LCurly, RCurly, CurlyBracketRegex());
 }
 
-// Remove square brackets and its contents
+// Remove curved brackets () and its contents
 public static partial class Function
 {
-  // Match innermost [] https://stackoverflow.com/a/49533163/17753137
-  [GeneratedRegex(@"\[(?:[^\[\]])*\]")]
-  private static partial Regex SquareBracketContainerRegex();
+  [GeneratedRegex(@"\((?:[^()])*\)")] // ℹ️
+  private static partial Regex CurvedBracketRegex();
 
-  public static void RemoveSquareBrackets(ref string input, in bool removeSquareBrackets)
-  {
-    if (!removeSquareBrackets) { return; }
+  public static void RemoveCurvedBrackets(ref string input, in bool removeCurvedBrackets) =>
+    RemoveBrackets(ref input, removeCurvedBrackets, LCurved, RCurved, CurvedBracketRegex());
+}
 
-    // Check for unbalanced square brackets | #opening != #closing
-    if (!IsBracketBalanced(ref input, OpeningSquare, ClosingSquare)) { return; }
+// Remove square brackets [] and its contents
+public static partial class Function
+{
+  [GeneratedRegex(@"\[(?:[^\[\]])*\]")] // ℹ️
+  private static partial Regex SquareBracketRegex();
 
-    // If brackets are balanced, remove the innermost [] bracket to outermost [..[]..] bracket
-    RecursivelyRemoveCurlyBrackets(ref input);
-  }
-
-  private static void RecursivelyRemoveCurlyBrackets(ref string input)
-  {
-    input = SquareBracketContainerRegex().Replace(input, Space);
-    // Rematch recursively to go from innermost [] to outermost [...[]...]
-    if (SquareBracketContainerRegex().Match(input).Success) { RecursivelyRemoveCurlyBrackets(ref input); }
-  }
+  public static void RemoveSquareBrackets(ref string input, in bool removeSquareBrackets) =>
+    RemoveBrackets(ref input, removeSquareBrackets, LSquare, RSquare, SquareBracketRegex());
 }
