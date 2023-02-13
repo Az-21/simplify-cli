@@ -26,8 +26,8 @@ public static class CommandLineArguments
 
     // Search for slash (/) character to determine if a working directory is given as an argument
     if (args.Any() && args[0].Replace('\\', '/').Contains('/')) { libraryPath = args[0]; }
-    // Otherwise, default to the path in Config.json
-    else { libraryPath = Global.ImmutableConfig.LibraryPath; }
+    // Otherwise, default to the current location of the terminal
+    else { libraryPath = System.Environment.CurrentDirectory; }
 
     // Print and return
     Console.WriteLine($"\nLibrary path: {Print.InfoText(libraryPath)}");

@@ -31,7 +31,6 @@ public static class Preferences
 
 // Immutable class to help deserialize JSON
 public sealed record class JsonConfig(
-  string LibraryPath,
   bool GetAllDirectories,
   string Extensions,
   string Blacklist,
