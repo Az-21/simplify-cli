@@ -18,7 +18,7 @@ public static class Preferences
     if (!File.Exists(configPath)) { PrintConfigFileNotFoundMessage(); }
 
     // Deserialize
-    return JsonSerializer.Deserialize<JsonConfig>(File.ReadAllText(configPath))!;
+    return DeserializeJsonConfig(configPath);
   }
 
   private static string GetJsonConfigLocation()
@@ -33,6 +33,28 @@ public static class Preferences
     Print.ErrorBlock();
     Console.WriteLine("Config file not found, please re-install app.");
     Environment.Exit(1);
+  }
+
+  private static JsonConfig DeserializeJsonConfig(in string configPath)
+  {
+    JsonSerializerOptions options = new()
+    {
+      ReadCommentHandling = JsonCommentHandling.Skip,
+      AllowTrailingCommas = true,
+    };
+
+    // Deserialize
+    try
+    {
+      return JsonSerializer.Deserialize<JsonConfig>(File.ReadAllText(configPath), options)!;
+    }
+    catch (Exception)
+    {
+      Print.ErrorBlock();
+      Console.WriteLine("Invalid JSON. Check for typos, or re-install app.");
+      Environment.Exit(1);
+      return null; // Just to satisfy compiler. This is never returned.
+    }
   }
 }
 
