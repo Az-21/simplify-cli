@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-
 namespace Simplify;
 
 public static partial class Function
@@ -11,6 +10,6 @@ public static partial class Function
   public static void RemoveNumbers(ref string input)
   {
     if (!Global.ImmutableConfig.RemoveNumbers) { return; }
-    input = AnyNumberRegex().Replace(input, string.Empty);
+    input = AnyNumberRegex().Replace(input, Space);
   }
 }
