@@ -1,7 +1,7 @@
 ﻿namespace Test;
 
 [TestClass]
-public sealed class UnitTestRemoveAlllNumbers
+public sealed class UnitTestRemoveAllNumbers
 {
   [TestMethod]
   public void Test1()
