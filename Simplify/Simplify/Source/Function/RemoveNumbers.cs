@@ -7,7 +7,7 @@ public static partial class Function
   [GeneratedRegex(@"\d")]
   private static partial Regex AnyNumberRegex();
 
-  public static void RemoveNumbers(ref string input, bool removeNumbers)
+  public static void RemoveNumbers(ref string input, in bool removeNumbers)
   {
     if (!removeNumbers) { return; }
     input = AnyNumberRegex().Replace(input, Space);

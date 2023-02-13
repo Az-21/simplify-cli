@@ -9,7 +9,7 @@ public static partial class Function
   private static partial Regex FourDigitNumberStarting19or20Regex();
 
   //Preserving release year for movie/series before BracketRemover functions
-  public static void AppendYearPre(ref string input, bool appendYear)
+  public static void AppendYearPre(ref string input, in bool appendYear)
   {
     if (!appendYear) { return; }
 
@@ -25,7 +25,7 @@ public static partial class Function
   }
 
   //Restoring release year for movie/series and appending it at the last of input
-  public static void AppendYearPost(ref string input, bool appendYear)
+  public static void AppendYearPost(ref string input, in bool appendYear)
   {
     if (!appendYear) { return; }
 

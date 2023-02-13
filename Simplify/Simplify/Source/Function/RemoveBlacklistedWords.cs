@@ -3,7 +3,7 @@ namespace Simplify;
 
 public static partial class Function
 {
-  public static void RemoveBlacklistedWords(ref string input, string blacklist)
+  public static void RemoveBlacklistedWords(ref string input, in string blacklist)
   {
     string[] rmList = blacklist
       .Split(',')
