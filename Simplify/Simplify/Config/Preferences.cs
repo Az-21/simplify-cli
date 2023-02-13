@@ -1,9 +1,5 @@
 ﻿using System.Text.Json;
-
 namespace Simplify;
-
-// Class to hold runtime config passed via CLI (not present in Config.json)
-public sealed record class RuntimeConfig(bool MakeChangesPermanent, bool RenameFolders);
 
 // Class to hold deserialized JSON preferences in Config.json
 public static class Preferences
@@ -57,6 +53,9 @@ public static class Preferences
     }
   }
 }
+
+// Class to hold runtime config passed via CLI (not present in Config.json)
+public sealed record class RuntimeConfig(bool MakeChangesPermanent, bool RenameFolders);
 
 // Immutable class to help deserialize JSON
 public sealed record class JsonConfig(
