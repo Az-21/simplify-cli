@@ -56,6 +56,7 @@ public static class Print
 
     return CommonConfirmation(makeChangesPermanent);
   }
+
   public static bool FolderConfirmation(string[] folders, bool makeChangesPermanent)
   {
     InfoBlock();
