@@ -15,7 +15,7 @@ public static class Rename
     Simplify.RemoveNonASCII(ref filename);
 
     // Order sensitive operations (last)
-    Simplify.AppendYearPost(ref filename);
+    Function.AppendYearPost(ref filename, Global.ImmutableConfig.AppendYear);
     Simplify.SmartEpisodeDash(ref filename);
     Simplify.ReduceWhitespace(ref filename);
     Simplify.ConvertToSentenceCase(ref filename);

@@ -6,23 +6,7 @@ namespace Simplify;
 // Order sensitive functions (first)
 public static partial class Simplify
 {
-  //Preserving release year for movie/series before BracketRemover function
-  [GeneratedRegex("(19|20)\\d{2}", RegexOptions.RightToLeft)]
-  private static partial Regex FourDigitNumberStarting19or20Regex();
 
-  public static void AppendYearPre(ref string filename)
-  {
-    if (!Global.ImmutableConfig.AppendYear) { return; }
-
-    Match releaseYear = FourDigitNumberStarting19or20Regex().Match(filename);
-    if (releaseYear.Success)
-    {
-      filename = filename.Remove(releaseYear.Index, 4);
-      filename = filename.Replace("()", string.Empty);
-      filename = filename.Replace("[]", string.Empty);
-      filename += $" PLACEHOLDERLEFT{releaseYear.Value}PLACEHOLDERRIGHT";
-    }
-  }
 }
 
 // Order insensitive operations
@@ -69,14 +53,7 @@ public static partial class Simplify
 // Order sensitive functions (last)
 static partial class Simplify
 {
-  //Restoring release year for movie/series and appending it at the last of filename
-  public static void AppendYearPost(ref string filename)
-  {
-    if (!Global.ImmutableConfig.AppendYear) { return; }
 
-    filename = filename.Replace("PLACEHOLDERLEFT", "(");
-    filename = filename.Replace("PLACEHOLDERRIGHT", ")");
-  }
 
   // Remove 2+ and trailing whitespace: ` abc    def ` -> `abc def`
   [GeneratedRegex("\\s+")]

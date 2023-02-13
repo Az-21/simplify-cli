@@ -19,7 +19,16 @@ public static partial class Function
       if (releaseYear.Value == "1920") { return; }
 
       filename = filename.Remove(releaseYear.Index, 4);
-      filename += $" PLACEHOLDERLEFT{releaseYear.Value}PLACEHOLDERRIGHT";
+      filename += $"{Space}PLACEHOLDERLEFT{releaseYear.Value}PLACEHOLDERRIGHT";
     }
+  }
+
+  //Restoring release year for movie/series and appending it at the last of filename
+  public static void AppendYearPost(ref string filename, bool appendYear)
+  {
+    if (!appendYear) { return; }
+
+    filename = filename.Replace("PLACEHOLDERLEFT", "(");
+    filename = filename.Replace("PLACEHOLDERRIGHT", ")");
   }
 }
