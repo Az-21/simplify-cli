@@ -1,10 +1,10 @@
-using Simplify;
-
 namespace Test;
 
 [TestClass]
 public class UnitTestRemoveBlacklistedWords
 {
+  const string blacklist = "., -, _, webrip, x256, HEVC, camrip, nogrp, ddp5, x264";
+
   [TestMethod]
   public void Test1()
   {
@@ -13,7 +13,7 @@ public class UnitTestRemoveBlacklistedWords
     const string expected = "(lambda) ( ) ( ) ( )";
 
     // Test
-    Function.RemoveBlacklistedWords(ref filename);
+    Simplify.Function.RemoveBlacklistedWords(ref filename, blacklist);
     Assert.AreEqual(expected, filename);
   }
 
@@ -25,7 +25,7 @@ public class UnitTestRemoveBlacklistedWords
     const string expected = "x   x";
 
     // Test
-    Function.RemoveBlacklistedWords(ref filename);
+    Simplify.Function.RemoveBlacklistedWords(ref filename, blacklist);
     Assert.AreEqual(expected, filename);
   }
 
@@ -37,7 +37,7 @@ public class UnitTestRemoveBlacklistedWords
     const string expected = "HEVxC";
 
     // Test
-    Function.RemoveBlacklistedWords(ref filename);
+    Simplify.Function.RemoveBlacklistedWords(ref filename, blacklist);
     Assert.AreEqual(expected, filename);
   }
 }

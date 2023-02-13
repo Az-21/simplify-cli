@@ -11,7 +11,7 @@ public static class Rename
     // Order insensitive operations
     Simplify.RemoveCurvedBracket(ref filename);
     Simplify.RemoveSquareBracket(ref filename);
-    Function.RemoveBlacklistedWords(ref filename);
+    Function.RemoveBlacklistedWords(ref filename, Global.ImmutableConfig.Blacklist);
     Simplify.RemoveNonASCII(ref filename);
 
     // Order sensitive operations (last)

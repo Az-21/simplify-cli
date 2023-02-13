@@ -3,16 +3,16 @@ namespace Simplify;
 
 public static partial class Function
 {
-  public static void RemoveBlacklistedWords(ref string input)
+  public static void RemoveBlacklistedWords(ref string input, string blacklist)
   {
-    string[] blacklist = Global.ImmutableConfig.Blacklist
+    string[] rmList = blacklist
       .Split(',')
       .Select(x => x.Trim())
       .ToArray();
 
-    for (int i = 0; i < blacklist.Length; i++)
+    for (int i = 0; i < rmList.Length; i++)
     {
-      input = input.Replace(blacklist[i], Space, (StringComparison)RegexOptions.IgnoreCase);
+      input = input.Replace(rmList[i], Space, (StringComparison)RegexOptions.IgnoreCase);
     }
   }
 }
