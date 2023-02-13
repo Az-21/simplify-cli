@@ -3,9 +3,8 @@ namespace Simplify;
 
 public static partial class Function
 {
-  // Regex to match 19## or 20##
-  // NOTE: This pattern will also match ##..##(19|20)##...## which is not ideal
-  [GeneratedRegex(@"(19|20)\d{2}", RegexOptions.RightToLeft)]
+  // Regex to match {Non-digit} {19 OR 20 followed by any two digits} {Non-digit}
+  [GeneratedRegex(@"\D(19|20)\d{2}\D", RegexOptions.RightToLeft)]
   private static partial Regex FourDigitNumberStarting19or20Regex();
 
   //Preserving release year for movie/series before BracketRemover functions
@@ -13,14 +12,22 @@ public static partial class Function
   {
     if (!appendYear) { return; }
 
+    // Pad the input to ensure the match is always with length of 6
+    // Also eliminates need for start and end characters in the match => (\D|^)(19|20)\d{2}(\D|$)
+    input = Space + input + Space;
+
     Match releaseYear = FourDigitNumberStarting19or20Regex().Match(input);
+
     if (releaseYear.Success)
     {
-      // Special case of year = 1920 where it is most probably resolution and not year
-      if (releaseYear.Value == "1920") { return; }
+      // Slice the match to remove left and right non-digit characters (\D)
+      string year = releaseYear.Value[1..5]; // *####* => ####
 
-      input = input.Remove(releaseYear.Index, 4);
-      input += $"{Space}PLACEHOLDERLEFT{releaseYear.Value}PLACEHOLDERRIGHT";
+      // Special case of year = 1920 where it is most probably resolution and not year
+      if (year == "1920") { return; }
+
+      input = input.Remove(releaseYear.Index + 1, 4); // +1 to start from the first non-digit character
+      input += $"PLACEHOLDERLEFT{year}PLACEHOLDERRIGHT";
     }
   }
 
