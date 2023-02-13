@@ -23,24 +23,11 @@ public static partial class Simplify
       filename += $" PLACEHOLDERLEFT{releaseYear.Value}PLACEHOLDERRIGHT";
     }
   }
-
-  // Remove All Numbers
-  [GeneratedRegex("\\d")]
-  private static partial Regex AnyNumberRegex();
-
-  public static void RemoveNumbers(ref string filename)
-  {
-    if (!Global.ImmutableConfig.RemoveNumbers) { return; }
-    filename = AnyNumberRegex().Replace(filename, string.Empty);
-  }
 }
 
 // Order insensitive operations
 public static partial class Simplify
 {
-  // Blacklist
-
-
   // Convert to Lower Case
   public static void ConvertToLowercase(ref string filename)
   {

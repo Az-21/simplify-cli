@@ -5,7 +5,7 @@ public static class Rename
   private static void ApplySimplificationFunctions(ref string filename)
   {
     // Order sensitive operations (first)
-    Simplify.RemoveNumbers(ref filename);
+    Function.RemoveNumbers(ref filename);
     Simplify.AppendYearPre(ref filename);
 
     // Order insensitive operations
