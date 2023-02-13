@@ -4,7 +4,7 @@
 public sealed class UnitTestRemoveBrackets
 {
   [TestMethod]
-  public void Test1()
+  public void Test01()
   {
     // Expected I/O
     string filename = "{Text 0} (Text 0) [Text 0] {}()[] Text 0";
@@ -16,7 +16,7 @@ public sealed class UnitTestRemoveBrackets
   }
 
   [TestMethod]
-  public void Test2()
+  public void Test02()
   {
     // Expected I/O
     string filename = "{Text 0} (Text 0) [Text 0] {}()[] Text 0";
@@ -28,7 +28,7 @@ public sealed class UnitTestRemoveBrackets
   }
 
   [TestMethod]
-  public void Test3()
+  public void Test03()
   {
     // Expected I/O
     string filename = "{Text 0} (Text 0) [Text 0] {}()[] Text 0";
@@ -40,7 +40,7 @@ public sealed class UnitTestRemoveBrackets
   }
 
   [TestMethod]
-  public void Test4()
+  public void Test04()
   {
     // Expected I/O
     string filename = "{Text 0} (Text 0) [Text 0] {}()[] Text 0";
@@ -52,7 +52,7 @@ public sealed class UnitTestRemoveBrackets
   }
 
   [TestMethod]
-  public void Test5()
+  public void Test05()
   {
     // Expected I/O
     string filename = "{Text 0} (Text 0) [Text 0] {}()[] Text 0";
@@ -64,7 +64,7 @@ public sealed class UnitTestRemoveBrackets
   }
 
   [TestMethod]
-  public void Test6()
+  public void Test06()
   {
     // Expected I/O
     string filename = "{Text 0} (Text 0) [Text 0] {}()[] Text 0";
@@ -76,7 +76,7 @@ public sealed class UnitTestRemoveBrackets
   }
 
   [TestMethod]
-  public void Test7()
+  public void Test07()
   {
     // Expected I/O
     string filename = "{ Level 3 { Level 2 { Level 1 } } } (abc) [XYZ]";
@@ -88,7 +88,7 @@ public sealed class UnitTestRemoveBrackets
   }
 
   [TestMethod]
-  public void Test8()
+  public void Test08()
   {
     // Expected I/O
     string filename = "( Level 3 ( Level 2 ( Level 1 ) ) ) {abc} [xyz]";
@@ -100,13 +100,49 @@ public sealed class UnitTestRemoveBrackets
   }
 
   [TestMethod]
-  public void Test9()
+  public void Test09()
   {
     // Expected I/O
     string filename = "[ Level 3 [ Level 2 [ Level 1 ] ] ] {abc} (xyz)";
     const string expected = "  {abc} (xyz)";
 
     // Test nested square brackets removal
+    Simplify.Function.RemoveSquareBrackets(ref filename, true);
+    Assert.AreEqual(expected, filename);
+  }
+
+  [TestMethod]
+  public void Test10()
+  {
+    // Expected I/O
+    string filename = "{ { Level 3 { Level 2 { Level 1 } } } (abc) [XYZ]";
+    const string expected = "{ { Level 3 { Level 2 { Level 1 } } } (abc) [XYZ]";
+
+    // Test nested curly brackets removal where brackets are unbalanced => Skip and make no changes
+    Simplify.Function.RemoveCurlyBrackets(ref filename, true);
+    Assert.AreEqual(expected, filename);
+  }
+
+  [TestMethod]
+  public void Test11()
+  {
+    // Expected I/O
+    string filename = "( ( Level 3 ( Level 2 ( Level 1 ) ) ) {abc} [xyz]";
+    const string expected = "( ( Level 3 ( Level 2 ( Level 1 ) ) ) {abc} [xyz]";
+
+    // Test nested curved brackets removal where brackets are unbalanced => Skip and make no changes
+    Simplify.Function.RemoveCurvedBrackets(ref filename, true);
+    Assert.AreEqual(expected, filename);
+  }
+
+  [TestMethod]
+  public void Test12()
+  {
+    // Expected I/O
+    string filename = "[ Level 3 [ Level 2 [ Level 1 ] ] ] ] {abc} (xyz)";
+    const string expected = "[ Level 3 [ Level 2 [ Level 1 ] ] ] ] {abc} (xyz)";
+
+    // Test nested square brackets removal where brackets are unbalanced => Skip and make no changes
     Simplify.Function.RemoveSquareBrackets(ref filename, true);
     Assert.AreEqual(expected, filename);
   }
