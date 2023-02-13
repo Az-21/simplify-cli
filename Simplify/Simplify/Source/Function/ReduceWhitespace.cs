@@ -4,7 +4,7 @@ namespace Simplify;
 public static partial class Function
 {
   // Replace all whitespace with a single space AND then trim
-  [GeneratedRegex("\\s+")]
+  [GeneratedRegex(@"\s+")]
   private static partial Regex TwoOrMoreWhitespaceRegex();
 
   public static void ReduceWhitespace(ref string input)

@@ -5,7 +5,7 @@ public static partial class Function
 {
   // Regex to match 19## or 20##
   // NOTE: This pattern will also match ##..##(19|20)##...## which is not ideal
-  [GeneratedRegex("(19|20)\\d{2}", RegexOptions.RightToLeft)]
+  [GeneratedRegex(@"(19|20)\d{2}", RegexOptions.RightToLeft)]
   private static partial Regex FourDigitNumberStarting19or20Regex();
 
   //Preserving release year for movie/series before BracketRemover functions
