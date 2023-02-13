@@ -6,7 +6,7 @@ public static class Rename
   {
     // Order sensitive operations (first)
     Function.RemoveNumbers(ref filename, Global.ImmutableConfig.RemoveNumbers);
-    Simplify.AppendYearPre(ref filename);
+    Function.AppendYearPre(ref filename, Global.ImmutableConfig.AppendYear);
 
     // Order insensitive operations
     Simplify.RemoveCurvedBracket(ref filename);
