@@ -6,21 +6,21 @@ public static partial class Function
 {
   // Remove parentheses and its contents
   [GeneratedRegex(@" ?\(.*?\)")]
-  private static partial Regex CurvedBracketRegex();
+  private static partial Regex CurvedBracketContainerRegex();
 
-  public static void RemoveCurvedBracket(ref string input, in bool removeCurvedBrackets)
+  public static void RemoveCurvedBrackets(ref string input, in bool removeCurvedBrackets)
   {
     if (!removeCurvedBrackets) { return; }
-    input = CurvedBracketRegex().Replace(input, " ");
+    input = CurvedBracketContainerRegex().Replace(input, " ");
   }
 
   // Remove square brackets and its contents
   [GeneratedRegex(@" ?\[.*?\]")]
-  private static partial Regex SquareBracketRegex();
+  private static partial Regex SquareBracketContainerRegex();
 
-  public static void RemoveSquareBracket(ref string input, in bool removeSquareBrackets)
+  public static void RemoveSquareBrackets(ref string input, in bool removeSquareBrackets)
   {
     if (!removeSquareBrackets) { return; }
-    input = SquareBracketRegex().Replace(input, " ");
+    input = SquareBracketContainerRegex().Replace(input, " ");
   }
 }
