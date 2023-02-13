@@ -12,25 +12,7 @@ public static partial class Simplify
 // Order insensitive operations
 public static partial class Simplify
 {
-  // Remove parentheses + text: `abc (def)` -> `abc  `
-  [GeneratedRegex(" ?\\(.*?\\)")]
-  private static partial Regex CurvedBracketRegex();
 
-  public static void RemoveCurvedBracket(ref string filename)
-  {
-    if (!Global.ImmutableConfig.RemoveCurvedBracket) { return; }
-    filename = CurvedBracketRegex().Replace(filename, " ");
-  }
-
-  // Remove square brackets + text: `abc [def]` -> `abc  `
-  [GeneratedRegex(" ?\\[.*?\\]")]
-  private static partial Regex SquareBracketRegex();
-
-  public static void RemoveSquareBracket(ref string filename)
-  {
-    if (!Global.ImmutableConfig.RemoveSquareBracket) { return; }
-    filename = SquareBracketRegex().Replace(filename, " ");
-  }
 }
 
 // Order sensitive functions (last)

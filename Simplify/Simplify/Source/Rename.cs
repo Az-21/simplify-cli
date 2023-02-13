@@ -9,8 +9,8 @@ public static class Rename
     Function.AppendYearPre(ref filename, Global.ImmutableConfig.AppendYear);
 
     // Order insensitive operations
-    Simplify.RemoveCurvedBracket(ref filename);
-    Simplify.RemoveSquareBracket(ref filename);
+    Function.RemoveCurvedBracket(ref filename, Global.ImmutableConfig.RemoveCurvedBracket);
+    Function.RemoveSquareBracket(ref filename, Global.ImmutableConfig.RemoveSquareBracket);
     Function.RemoveBlacklistedWords(ref filename, Global.ImmutableConfig.Blacklist);
     Function.RemoveNonAsciiCharacters(ref filename, Global.ImmutableConfig.RemoveNonAsciiCharacters);
 
