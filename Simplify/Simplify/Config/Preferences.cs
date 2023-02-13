@@ -11,16 +11,11 @@ public static class Preferences
   // Load preferences from 'config.json'
   public static JsonConfig LoadConfig()
   {
-    // Get location of 'Config.json'
+    // Generate location of 'Config.json'
     string configPath = GetJsonConfigLocation();
 
-    // Not found check
-    if (!File.Exists(configPath))
-    {
-      Print.ErrorBlock();
-      Console.WriteLine("Config file not found, please re-install app.");
-      Environment.Exit(1);
-    }
+    // Check if the 'Config.json' exists
+    if (!File.Exists(configPath)) { PrintConfigFileNotFoundMessage(); }
 
     // Deserialize
     return JsonSerializer.Deserialize<JsonConfig>(File.ReadAllText(configPath))!;
@@ -31,6 +26,13 @@ public static class Preferences
     const string jsonPath = "Config/Config.json";
     string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
     return Path.Combine(baseDirectory, jsonPath);
+  }
+
+  private static void PrintConfigFileNotFoundMessage()
+  {
+    Print.ErrorBlock();
+    Console.WriteLine("Config file not found, please re-install app.");
+    Environment.Exit(1);
   }
 }
 
