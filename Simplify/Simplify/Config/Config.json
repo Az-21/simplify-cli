@@ -14,7 +14,7 @@
   "SentenceCase": false,
   "SmartCapitalization": true,
   "OptimizeArticles": true,
-  "RemoveNonAscii": true,
+  "RemoveNonAsciiCharacters": true,
   "convertToLowercase": false,
   "SmartEpisodeDash": true,
   "RemoveNumbers": false,

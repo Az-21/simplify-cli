@@ -69,7 +69,7 @@ public sealed record class JsonConfig(
   bool SentenceCase,
   bool SmartCapitalization,
   bool OptimizeArticles,
-  bool RemoveNonAscii,
+  bool RemoveNonAsciiCharacters,
   bool ConvertToLowercase,
   bool SmartEpisodeDash,
   bool RemoveNumbers,
