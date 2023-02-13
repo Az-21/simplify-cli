@@ -31,7 +31,7 @@ public sealed class FolderMetadata
     FullPath = fullPath;
 
     // Extrapolate
-    string directory = Path.GetDirectoryName(FullPath) ?? "NULL FOLDER METADATA";
+    string directory = Path.GetDirectoryName(FullPath)!;
     ParentDirectory = directory.Replace('\\', '/');
     Name = FullPath.Split('/')[^1];
   }
