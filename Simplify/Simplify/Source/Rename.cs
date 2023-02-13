@@ -17,7 +17,7 @@ public static class Rename
     // Order sensitive operations (last)
     Function.AppendYearPost(ref filename, Global.ImmutableConfig.AppendYear);
     Simplify.SmartEpisodeDash(ref filename);
-    Simplify.ReduceWhitespace(ref filename);
+    Function.ReduceWhitespace(ref filename);
     Simplify.ConvertToSentenceCase(ref filename);
     Simplify.OptimizeArticles(ref filename);
     Simplify.ConvertToCliFriendly(ref filename);

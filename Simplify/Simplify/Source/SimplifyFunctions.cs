@@ -53,17 +53,6 @@ public static partial class Simplify
 // Order sensitive functions (last)
 static partial class Simplify
 {
-
-
-  // Remove 2+ and trailing whitespace: ` abc    def ` -> `abc def`
-  [GeneratedRegex("\\s+")]
-  private static partial Regex TwoOrMoreWhitespaceRegex();
-
-  public static void ReduceWhitespace(ref string filename)
-  {
-    filename = TwoOrMoreWhitespaceRegex().Replace(filename, " ").Trim(' ');
-  }
-
   // Smart Capitalization `abc aBc` -> `Abc  aBc` || Sentence Case `abc aBc` -> `Abc  ABc`
   [GeneratedRegex("[A-Z]")]
   private static partial Regex AnyUppercaseLetterRegex();
