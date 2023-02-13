@@ -25,7 +25,7 @@ public static partial class Function
   }
 
   // Remove curved brackets and its contents
-  [GeneratedRegex(@" ?\[.*?\]")]
+  [GeneratedRegex(@" ?\{.*?\}")]
   private static partial Regex CurlyBracketContainerRegex();
 
   public static void RemoveCurlyBrackets(ref string input, in bool removeCurlyBrackets)
