@@ -11,10 +11,8 @@ public static class Preferences
   // Load preferences from 'config.json'
   public static JsonConfig LoadConfig()
   {
-    // Get location of 'config.json'
-    string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
-    exeDirectory = exeDirectory.Remove(exeDirectory.Length - 1); // remove appended '\'
-    string configPath = $"{exeDirectory}/config/config.json";
+    // Get location of 'Config.json'
+    string configPath = GetJsonConfigLocation();
 
     // Not found check
     if (!File.Exists(configPath))
@@ -26,6 +24,13 @@ public static class Preferences
 
     // Deserialize
     return JsonSerializer.Deserialize<JsonConfig>(File.ReadAllText(configPath))!;
+  }
+
+  private static string GetJsonConfigLocation()
+  {
+    const string jsonPath = "Config/Config.json";
+    string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    return Path.Combine(baseDirectory, jsonPath);
   }
 }
 
