@@ -7,10 +7,10 @@ public static partial class Function
   [GeneratedRegex("\\s+")]
   private static partial Regex TwoOrMoreWhitespaceRegex();
 
-  public static void ReduceWhitespace(ref string filename)
+  public static void ReduceWhitespace(ref string input)
   {
-    filename = TwoOrMoreWhitespaceRegex()
-      .Replace(filename, Space)
+    input = TwoOrMoreWhitespaceRegex()
+      .Replace(input, Space)
       .Trim(' ');
   }
 }
