@@ -1,23 +1,48 @@
 {
-  "_": "View readme at https://github.com/Az-21/filename-simplifier for more information",
+  // Visit https://github.com/Az-21/simplify-cli/blob/main/README.md for more information. //
 
-  "GetAllDirectories": true,
-  "Extensions": "mkv, mp4, srt, ass, avi, mov, mpeg",
-  "Blacklist": "., -, _, webrip, x256, HEVC, camrip, nogrp, ddp5, x264",
+  // Simplify the contents of children folders
+  "GetAllDirectories": true, // true or false
 
-  "RemoveCurlyBrackets": true,
-  "RemoveCurvedBrackets": true,
-  "RemoveSquareBrackets": true,
+  // File extensions to simplify | Case insensitive
+  "Extensions": "mkv, mp4, srt, ass, avi, mov, mpeg", // Comma separated list
 
-  "SentenceCase": false,
-  "SmartCapitalization": true,
-  "OptimizeArticles": true,
-  "RemoveNonAsciiCharacters": true,
+  // Remove words and characters from the files | Case insensitive
+  "Blacklist": "., -, _, webrip, x256, HEVC, camrip, nogrp, ddp5, x264", // Comma separated list
 
-  "AppendYear": false,
-  "AppendSeasonAndOrEpisode": true,
-  "SeasonAndOrEpisodePrefix": "-",
+  // Remove curly brackets and text inside it | { ... }
+  "RemoveCurlyBrackets": true, // true or false
 
-  "RemoveNumbers": false,
-  "convertToLowercase": false
+  // Remove curved brackets and text inside it | ( ... )
+  "RemoveCurvedBrackets": true, // true or false
+
+  // Remove square brackets and text inside it | [ ... ]
+  "RemoveSquareBrackets": true, // true or false
+
+  // Convert to Sentence Case | tHe moViE tItLe -> The Movie Title
+  "SentenceCase": true, // true or false
+
+  // Extension option of SentenceCase to preserve words like reZero and USA | SentenceCase must be true for this to work
+  "SmartCapitalization": true, // true or false
+
+  // Convert articles (a, an, the) to lowercase | Movie Of The Year -> Movie of the Year
+  "OptimizeArticles": true, // true or false
+
+  // Remove non-standard characters like Japanese, Cyrillic, and accented Latin characters
+  "RemoveNonAsciiCharacters": true, // true or false
+
+  // Extract year of release from filename and append it to end with parenthesis | Movie (1999)
+  "AppendYear": false, // true or false
+
+  // Extract season, episode, or season+episode and append it to end | TV Series S02E01
+  "AppendSeasonAndOrEpisode": true, // true or false
+
+  // Prefix the appended season, episode, or season+episode with a character/word | TV Series - S02E01
+  "SeasonAndOrEpisodePrefix": "-", // String or character
+
+  // Removes **all** numbers from filename
+  "RemoveNumbers": false, // true or [false]
+
+  // Convert **all** letters to lowercase
+  "convertToLowercase": false // true or [false]
 }
