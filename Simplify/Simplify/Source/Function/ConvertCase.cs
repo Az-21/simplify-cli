@@ -14,7 +14,7 @@ public static partial class Function
 public static partial class Function
 {
   // Replace all whitespace with a single space AND then trim
-  [GeneratedRegex(@"[A-Z]")]
+  [GeneratedRegex("[A-Z]")]
   private static partial Regex AnyUppercaseLetterRegex();
 
   public static void ConvertToSentenceCase(ref string input, in bool sentenceCase, in bool smartCapitalization)
