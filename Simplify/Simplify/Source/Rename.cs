@@ -20,7 +20,7 @@ public static class Rename
     Simplify.SmartEpisodeDash(ref filename);
     Function.ReduceWhitespace(ref filename); // Upcoming functions will be faster without extra whitespaces
     Function.ConvertToSentenceCase(ref filename, Global.ImmutableConfig.SentenceCase, Global.ImmutableConfig.SmartCapitalization);
-    Simplify.OptimizeArticles(ref filename);
+    Function.OptimizeArticles(ref filename, Global.ImmutableConfig.OptimizeArticles);
     Simplify.ConvertToCliFriendly(ref filename);
     Function.ConvertToLowercase(ref filename, Global.ImmutableConfig.ConvertToLowercase);
   }
