@@ -20,8 +20,9 @@
 
 **Before**
 ```
-(火) [GroupName] Generic.Isekai_ジェネリック異世界_(_2020_)_-_S01E07.[1080p].[HEVC x265 10bit][Multi-Subs].(Weekly).mkv
+(火) Generic.Isekai_ジェネリック異世界S01E07[1080p][HEVC x265 10bit][Multi-Subs](Weekly).mkv
 ```
+
 **After**
 ```
 Generic Isekai - S01E07.mkv
@@ -31,15 +32,15 @@ Generic Isekai - S01E07.mkv
 
 ![CLI](https://ucarecdn.com/6e75db27-f596-40db-8060-9f0a2b04600b/cli.png)
 
-## Installation
+# Installation
 
-### Download
+## Download
 
 - Download the latest release from [GitHub releases](https://github.com/Az-21/simplify-cli/releases/latest).
 - Extract the 7zip (`.7z`) archive. I recommend creating a new folder called `Terminal` in `C:\`.
 - Do not place these files under `C:\Program Files` or a folder which requires admin privileges.
 
-### Add as System Variable
+## Add as System Variable
 
 - Search 'Edit the system environment variables' from the start menu.
 - Click on 'Environment Variables'.
@@ -47,9 +48,9 @@ Generic Isekai - S01E07.mkv
 - Click on 'New' and provide the address of the folder containing `Simplify.exe`.
 - If you extracted archive in `C:\Terminal`, then the folder containing `Simplify.exe` is `C:\Terminal\Simplify`.
 
-## Run
+# Run
 
-### Simplify Library
+## Simplify Library
 
 ```ps
 # Perform a preview run (no changes will be made)
@@ -71,7 +72,7 @@ C:/Users/Username/Videos> simplify "C:/PathOfLibrary"
 # ^ Ignored                         ^ Used as path of library
 ```
 
-### Include Folders
+## Include Folders
 
 Unlike files, folders do not have extensions. This makes them difficult to scope. By default, folders are not renamed. This is to prevent undesired changes. To include folders, pass `--includefolders` flag.
 
@@ -83,17 +84,17 @@ simplify "C:/PathOfLibrary" --includefolders
 simplify "C:/PathOfLibrary" --includefolders --rename
 ```
 
-## Configuration
+# Configuration
 
-### Configuration File
+## Configuration File
 
 - Configuration file can be found in `Simplify\Config\Config.json`.
 - Open this file with Notepad (or your IDE).
 - Edit the parameters to modify the behavior of app.
 
-### Include Sub-folders
+## Include Sub-folders
 
-```json
+```jsonc
 // Config.json
 "GetAllDirectories": true, // true or false
 ```
@@ -101,11 +102,11 @@ simplify "C:/PathOfLibrary" --includefolders --rename
 - `true` ⟶ Include **all** sub-folders.
 - `false` ⟶ Rename only the top level contents.
 
-### Extensions
+## Extensions
 
 This is a comma-separated list of extension which will be renamed.
 
-```json
+```jsonc
 // Configuration file
 "Extensions": "mkv, mp4, srt, ass, avi, mov, mpeg",
 ```
@@ -115,11 +116,11 @@ Music Video.mp4         // `mp4` is present in `"Extensions"` `->` This file wil
 Music Video.mp3         // `mp3` is not present in `"Extensions"` `->` This file will be skipped
 ```
 
-### Blacklist
+## Blacklist
 
 This is a **comma-separated** list of words and characters which will be removed from filename (and folder name). This list is **case insensitive**.
 
-```json
+```jsonc
 // Configuration file
 "Blacklist": "., -, _, webrip, x256, HEVC, camrip, nogrp, ddp5, x264",
 ```
@@ -134,13 +135,13 @@ Movie ABC.mp4
 
 Although blacklist contains `HEVC`, `heVc` was also removed because the blacklist is case insensitive.
 
-#### Warning
+### Warning
 
 Avoid adding standard English letters (`"a, b, c"`) and short words in the blacklist. The program is not context aware, and it will remove every occurrence of blacklisted word/character.
 
-### Remove Curly Brackets
+## Remove Curly Brackets
 
-```json
+```jsonc
 // Configuration file
 "RemoveCurlyBrackets": true
 ```
@@ -156,9 +157,9 @@ Avoid adding standard English letters (`"a, b, c"`) and short words in the black
 Movie ABC.mp4
 ```
 
-### Remove Curved Brackets
+## Remove Curved Brackets
 
-```json
+```jsonc
 // Configuration file
 "RemoveCurvedBrackets": true
 ```
@@ -174,9 +175,9 @@ Movie ABC.mp4
 Movie ABC.mp4
 ```
 
-### Remove Square Brackets
+## Remove Square Brackets
 
-```json
+```jsonc
 // Configuration file
 "RemoveSquareBrackets": true
 ```
@@ -192,9 +193,9 @@ Movie ABC.mp4
 Movie ABC.mp4
 ```
 
-### Sentence Case
+## Sentence Case
 
-```json
+```jsonc
 // Configuration file
 "SentenceCase": true
 ```
@@ -210,11 +211,11 @@ a nEw WorLd.mp4
 A New World.mp4
 ```
 
-### Smart Capitalization
+## Smart Capitalization
 
 This is an extension option of `"SentenceCase"` to preserve words like `reZero` and `USA`.
 
-```json
+```jsonc
 // Configuration file
 "SmartCapitalization": true
 ```
@@ -232,11 +233,11 @@ reZero in a new world.mp4
 reZero In A New World.mp4
 ```
 
-### Optimize Articles
+## Optimize Articles
 
 Convert articles (a, an, the) to lowercase.
 
-```json
+```jsonc
 // Configuration file
 "OptimizeArticles": true
 ```
@@ -252,11 +253,11 @@ reZero In A New World.mp4
 reZero in a New World.mp4
 ```
 
-### Remove Non-ASCII (Non-English) Characters
+## Remove Non-ASCII (Non-English) Characters
 
 Remove non-standard characters like Japanese, Cyrillic, and accented Latin characters.
 
-```json
+```jsonc
 // Configuration file
 "RemoveNonAsciiCharacters": true
 ```
@@ -272,11 +273,11 @@ Movie 平仮名øøø片仮名øøø漢字.mp4
 Movie.mp4
 ```
 
-### Append Year
+## Append Year
 
 Extract year of release from filename and append it to end with parenthesis. Ignores year `1920` because, most probably, it will be the resolution `(1920x1080)`. This option will work even if the release year is embedded inside brackets `{ ... }`, `( ... )`, `[ ... ]` and they are configured to be removed.
 
-```json
+```jsonc
 // Configuration file
 "AppendYear": true
 ```
@@ -292,11 +293,11 @@ Movie 1999 HD.mp4
 Movie HD (1999).mp4
 ```
 
-### Append Season and/or Episode
+## Append Season and/or Episode
 
 Extract season, episode, or season+episode and append it to end. This option will work even if the season and/or episode is embedded inside brackets `{ ... }`, `( ... )`, `[ ... ]` and they are configured to be removed.
 
-```json
+```jsonc
 // Configuration file
 "AppendSeasonAndOrEpisode": true,
 "SeasonAndOrEpisodePrefix": "-", // String or character
@@ -322,7 +323,7 @@ TV Series HD E999.mp4
 TV Series HD S02E01.mp4
 ```
 
-### Note on Appending Functions
+## Note on Appending Functions
 
 If both `"AppendSeasonAndOrEpisode"` `"AppendYear"` are enabled, the year will come first.
 
@@ -343,9 +344,9 @@ TV Series (2008) E999.mp4
 TV Series (2023) S02E01.mp4
 ```
 
-### Remove Numbers
+## Remove Numbers
 
-```json
+```jsonc
 // Configuration file
 "RemoveNumbers": false
 ```
@@ -363,9 +364,9 @@ Movie S E.mp4
 
 This setting is not intended to be used along with append year and append season+episode.
 
-### Convert to Lowercase
+## Convert to Lowercase
 
-```json
+```jsonc
 // Configuration file
 "ConvertToLowercase": false
 ```
