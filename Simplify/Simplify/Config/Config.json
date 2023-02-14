@@ -44,5 +44,5 @@
   "RemoveNumbers": false, // true or [false]
 
   // Convert **all** letters to lowercase
-  "convertToLowercase": false // true or [false]
+  "ConvertToLowercase": false // true or [false]
 }
