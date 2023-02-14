@@ -19,7 +19,7 @@ public static class Rename
     Function.AppendYearPost(ref filename, Global.ImmutableConfig.AppendYear);
     Simplify.SmartEpisodeDash(ref filename);
     Function.ReduceWhitespace(ref filename);
-    Simplify.ConvertToSentenceCase(ref filename);
+    Function.ConvertToSentenceCase(ref filename, Global.ImmutableConfig.SentenceCase, Global.ImmutableConfig.SmartCapitalization);
     Simplify.OptimizeArticles(ref filename);
     Simplify.ConvertToCliFriendly(ref filename);
     Function.ConvertToLowercase(ref filename, Global.ImmutableConfig.ConvertToLowercase);

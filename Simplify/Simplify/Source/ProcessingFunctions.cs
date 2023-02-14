@@ -10,10 +10,4 @@ public static class Process
         .Select(x => $"*.{x.Trim()}")
         .ToArray();
   }
-
-  public static string FirstCharToUppercase(string word)
-  {
-    if (string.IsNullOrEmpty(word)) { return string.Empty; }
-    return char.ToUpperInvariant(word[0]) + word[1..];
-  }
 }
