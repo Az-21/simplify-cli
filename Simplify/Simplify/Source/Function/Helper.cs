@@ -1,5 +1,6 @@
 ﻿namespace Simplify;
 public static partial class Function
 {
-  const string Space = " ";
+  const char Space = ' ';
+  const string SpaceString = " ";
 }

@@ -12,7 +12,7 @@ public static partial class Function
 
     for (int i = 0; i < rmList.Length; i++)
     {
-      input = input.Replace(rmList[i], Space, (StringComparison)RegexOptions.IgnoreCase);
+      input = input.Replace(rmList[i], SpaceString, (StringComparison)RegexOptions.IgnoreCase);
     }
   }
 }

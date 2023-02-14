@@ -10,6 +10,6 @@ public static partial class Function
   public static void RemoveNumbers(ref string input, in bool removeNumbers)
   {
     if (!removeNumbers) { return; }
-    input = AnyNumberRegex().Replace(input, Space);
+    input = AnyNumberRegex().Replace(input, SpaceString);
   }
 }

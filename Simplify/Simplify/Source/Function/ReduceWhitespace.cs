@@ -10,7 +10,7 @@ public static partial class Function
   public static void ReduceWhitespace(ref string input)
   {
     input = TwoOrMoreWhitespaceRegex()
-      .Replace(input, Space)
+      .Replace(input, SpaceString)
       .Trim(' ');
   }
 }

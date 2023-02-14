@@ -45,7 +45,7 @@ public static partial class Function
 
   private static void RecursivelyRemoveBrackets(ref string input, in Regex regex)
   {
-    input = regex.Replace(input, Space);
+    input = regex.Replace(input, SpaceString);
     // Rematch recursively to go from innermost bracket pair to outermost bracket pair
     if (regex.Match(input).Success) { RecursivelyRemoveBrackets(ref input, regex); }
   }
