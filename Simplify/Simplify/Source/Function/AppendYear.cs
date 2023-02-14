@@ -26,7 +26,7 @@ public static partial class Function
       // Special case of year = 1920 where it is most probably resolution and not year
       if (year == "1920") { return; }
 
-      input = input.Remove(releaseYear.Index + 1, 4); // +1 to start from the first non-digit character
+      input = input.Remove(releaseYear.Index + 1, 4); // +1 to start from the first digit character
       input += $"PLACEHOLDERLEFT{year}PLACEHOLDERRIGHT";
     }
   }
