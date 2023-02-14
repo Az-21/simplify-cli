@@ -27,7 +27,7 @@ public static partial class Function
       if (year == "1920") { return; }
 
       input = input.Remove(releaseYear.Index + 1, 4); // +1 to start from the first digit character
-      input += $"PLACEHOLDERLEFT{year}PLACEHOLDERRIGHT";
+      input += $" #YPL#{year}#YPR#"; // YearPlaceholder Left/Right
     }
   }
 
@@ -36,7 +36,7 @@ public static partial class Function
   {
     if (!appendYear) { return; }
 
-    input = input.Replace("PLACEHOLDERLEFT", "(");
-    input = input.Replace("PLACEHOLDERRIGHT", ")");
+    input = input.Replace("#YPL#", "(");
+    input = input.Replace("#YPR#", ")");
   }
 }
