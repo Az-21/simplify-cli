@@ -19,7 +19,7 @@ public static partial class Function
 
   public static void ConvertToSentenceCase(ref string input, in bool sentenceCase, in bool smartCapitalization)
   {
-    if (!sentenceCase || !smartCapitalization) { return; }
+    if (!sentenceCase) { return; }
 
     string[] splitInput = input.Split(Space);
     for (int i = 0; i < splitInput.Length; i++)
