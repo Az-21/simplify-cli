@@ -32,7 +32,7 @@ public static partial class Function
 
 public static partial class Function
 {
-  public static void RemoveBrackets(ref string input, in bool removeBracket, char opening, char closing, Regex regex)
+  private static void RemoveBrackets(ref string input, in bool removeBracket, char opening, char closing, Regex regex)
   {
     if (!removeBracket) { return; }
 
