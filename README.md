@@ -122,8 +122,6 @@ This is a **comma-separated** list of words and characters which will be removed
 "Blacklist": "., -, _, webrip, x256, HEVC, camrip, nogrp, ddp5, x264",
 ```
 
-#### Sample I/O
-
 ```md
 # Input
 Movie ABC x256 heVc.mp4
@@ -148,8 +146,6 @@ Avoid adding standard English letters (`"a, b, c"`) and short words in the black
 - `true` ⟶ Remove curly brackets and text inside it `{ ... }`.
 - `false` ⟶ Keep curly brackets and text inside it.
 
-#### Sample I/O
-
 ```md
 # Input
 {GroupX} Movie ABC {UploaderY}.mp4
@@ -167,8 +163,6 @@ Movie ABC.mp4
 
 - `true` ⟶ Remove curved brackets and text inside it `( ... )`.
 - `false` ⟶ Keep curved brackets and text inside it.
-
-#### Sample I/O
 
 ```md
 # Input
@@ -188,12 +182,199 @@ Movie ABC.mp4
 - `true` ⟶ Remove square brackets and text inside it `[ ... ]`.
 - `false` ⟶ Keep square brackets and text inside it.
 
-#### Sample I/O
-
 ```md
 # Input
 [GroupX] Movie ABC [HEVC x256].mp4
 
 # Output
 Movie ABC.mp4
+```
+
+### Sentence Case
+
+```json
+// Configuration file
+"SentenceCase": true
+```
+
+- `true` ⟶ Convert words to Sentence Case.
+- `false` ⟶ Keep case as is.
+
+```md
+# Input
+a nEw WorLd.mp4
+
+# Output
+A New World.mp4
+```
+
+### Smart Capitalization
+
+This is an extension option of `"SentenceCase"` to preserve words like `reZero` and `USA`.
+
+```json
+// Configuration file
+"SmartCapitalization": true
+```
+
+`"SentenceCase"` must be `true` for this option to work.
+
+- `true` ⟶ Preserve words like `reZero` and `USA` while converting to Sentence Case.
+- `false` ⟶ Keep case as is.
+
+```md
+# Input
+reZero in a new world.mp4
+
+# Output
+reZero In A New World.mp4
+```
+
+### Optimize Articles
+
+Convert articles (a, an, the) to lowercase.
+
+```json
+// Configuration file
+"OptimizeArticles": true
+```
+
+- `true` ⟶ Optimize articles.
+- `false` ⟶ Keep case of articles as is.
+
+```md
+# Input
+reZero In A New World.mp4
+
+# Output
+reZero in a New World.mp4
+```
+
+### Remove Non-ASCII (Non-English) Characters
+
+Remove non-standard characters like Japanese, Cyrillic, and accented Latin characters.
+
+```json
+// Configuration file
+"RemoveNonAsciiCharacters": true
+```
+
+- `true` ⟶ Remove non-ASCII characters.
+- `false` ⟶ Keep non-ASCII characters as is.
+
+```md
+# Input
+Movie 平仮名øøø片仮名øøø漢字.mp4
+
+# Output
+Movie.mp4
+```
+
+### Append Year
+
+Extract year of release from filename and append it to end with parenthesis. Ignores year `1920` because, most probably, it will be the resolution `(1920x1080)`. This option will work even if the release year is embedded inside brackets `{ ... }`, `( ... )`, `[ ... ]` and they are configured to be removed.
+
+```json
+// Configuration file
+"AppendYear": true
+```
+
+- `true` ⟶ Append year with parenthesis.
+- `false` ⟶ Keep year as is.
+
+```md
+# Input
+Movie 1999 HD.mp4
+
+# Output
+Movie HD (1999).mp4
+```
+
+### Append Season and/or Episode
+
+Extract season, episode, or season+episode and append it to end. This option will work even if the season and/or episode is embedded inside brackets `{ ... }`, `( ... )`, `[ ... ]` and they are configured to be removed.
+
+```json
+// Configuration file
+"AppendSeasonAndOrEpisode": true,
+"SeasonAndOrEpisodePrefix": "-", // String or character
+```
+
+- `true` ⟶ Append season and/or episode with prefix.
+- `false` ⟶ Keep season and/or episode as is.
+
+```md
+# Input
+TV Series S01 HD.mp4
+TV Series E999 HD.mp4
+TV Series S02E01 HD.mp4
+
+# Output (with "SeasonAndOrEpisodePrefix": "-")
+TV Series HD - S01.mp4
+TV Series HD - E999.mp4
+TV Series HD - S02E01.mp4
+
+# Output (with "SeasonAndOrEpisodePrefix": " ")
+TV Series HD S01.mp4
+TV Series HD E999.mp4
+TV Series HD S02E01.mp4
+```
+
+### Note on Appending Functions
+
+If both `"AppendSeasonAndOrEpisode"` `"AppendYear"` are enabled, the year will come first.
+
+```md
+# Input
+TV Series S01 1997.mp4
+TV Series E999 2008.mp4
+TV Series S02E01 2023.mp4
+
+# Output (with "SeasonAndOrEpisodePrefix": "-")
+TV Series (1997) - S01.mp4
+TV Series (2008) - E999.mp4
+TV Series (2023) - S02E01.mp4
+
+# Output (with "SeasonAndOrEpisodePrefix": " ")
+TV Series (1997) S01.mp4
+TV Series (2008) E999.mp4
+TV Series (2023) S02E01.mp4
+```
+
+### Remove Numbers
+
+```json
+// Configuration file
+"RemoveNumbers": false
+```
+
+- `true` ⟶ Remove any and all numbers.
+- `false` ⟶ Keep numbers as is.
+
+```md
+# Input
+Movie 12345 S01E02.mp4
+
+# Output
+Movie S E.mp4
+```
+
+This setting is not intended to be used along with append year and append season+episode.
+
+### Convert to Lowercase
+
+```json
+// Configuration file
+"ConvertToLowercase": false
+```
+
+- `true` ⟶ Convert any and all letters to lowercase.
+- `false` ⟶ Keep case as is.
+
+```md
+# Input
+A NEw WorLD.mp4
+
+# Output
+a new world.mp4
 ```
