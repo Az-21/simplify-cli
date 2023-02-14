@@ -7,6 +7,7 @@ public static class Rename
     // Order sensitive operations (first)
     Function.RemoveNumbers(ref filename, Global.ImmutableConfig.RemoveNumbers);
     Function.AppendYearPre(ref filename, Global.ImmutableConfig.AppendYear);
+    Function.SmartEpisodeDashPre(ref filename, Global.ImmutableConfig.SmartEpisodeDash);
 
     // Order insensitive operations
     Function.RemoveCurlyBrackets(ref filename, Global.ImmutableConfig.RemoveCurlyBrackets);
@@ -17,7 +18,7 @@ public static class Rename
 
     // Order sensitive operations (last)
     Function.AppendYearPost(ref filename, Global.ImmutableConfig.AppendYear);
-    Function.SmartEpisodeDash(ref filename, Global.ImmutableConfig.SmartEpisodeDash);
+    Function.SmartEpisodeDashPost(ref filename, Global.ImmutableConfig.SmartEpisodeDash);
     Function.ReduceWhitespace(ref filename); // Upcoming functions will be faster without extra whitespaces
     Function.ConvertToSentenceCase(ref filename, Global.ImmutableConfig.SentenceCase, Global.ImmutableConfig.SmartCapitalization);
     Function.OptimizeArticles(ref filename, Global.ImmutableConfig.OptimizeArticles);

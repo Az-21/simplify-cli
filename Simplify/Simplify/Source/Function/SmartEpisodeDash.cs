@@ -6,18 +6,26 @@ public static partial class Function
   [GeneratedRegex(@"(S\d+E\d+)|([ES]\d+)", RegexOptions.IgnoreCase | RegexOptions.RightToLeft)]
   private static partial Regex SmartEpisodeDashRegex(); // S##E## || S## || E##
 
-  public static void SmartEpisodeDash(ref string input, in bool smartEpisodeDash)
+  public static void SmartEpisodeDashPre(ref string input, in bool smartEpisodeDash)
   {
     if (!smartEpisodeDash) { return; }
 
     Match match = SmartEpisodeDashRegex().Match(input);
     if (match.Success)
     {
-      // Convert episode number to uppercase
-      input = input.Replace(match.Value, match.Value.ToUpperInvariant());
+      // Delete season/episode info
+      input = input.Remove(match.Index, match.Length);
 
-      // Prefix dash with spaces
-      input = input.Insert(match.Index, " - ");
+      // Append uppercase version of season/episode info
+      input += $" #EPL#{match.Value.ToUpperInvariant()}#EPR#"; // EpisodePlaceholder Left/Right
     }
+  }
+
+  public static void SmartEpisodeDashPost(ref string input, in bool smartEpisodeDash)
+  {
+    if (!smartEpisodeDash) { return; }
+
+    input = input.Replace("#EPL", "- ");
+    input = input.Replace("#EPR", SpaceString);
   }
 }
