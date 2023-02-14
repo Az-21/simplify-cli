@@ -4,13 +4,13 @@ namespace Simplify;
 public static partial class Function
 {
   [GeneratedRegex(@"(S\d+E\d+)|([ES]\d+)", RegexOptions.IgnoreCase | RegexOptions.RightToLeft)]
-  private static partial Regex SmartEpisodeDashRegex(); // S##E## || S## || E##
+  private static partial Regex SeasonAndOrEpisodeRegex(); // S##E## || S## || E##
 
-  public static void SmartEpisodeDashPre(ref string input, in bool smartEpisodeDash)
+  public static void AppendSeasonAndOrEpisodePre(ref string input, in bool smartEpisodeDash)
   {
     if (!smartEpisodeDash) { return; }
 
-    Match match = SmartEpisodeDashRegex().Match(input);
+    Match match = SeasonAndOrEpisodeRegex().Match(input);
     if (match.Success)
     {
       // Delete season/episode info
@@ -21,7 +21,7 @@ public static partial class Function
     }
   }
 
-  public static void SmartEpisodeDashPost(ref string input, in bool smartEpisodeDash)
+  public static void AppendSeasonAndOrEpisodePost(ref string input, in bool smartEpisodeDash)
   {
     if (!smartEpisodeDash) { return; }
 
