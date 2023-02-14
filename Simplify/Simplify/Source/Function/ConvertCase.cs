@@ -21,9 +21,6 @@ public static partial class Function
   {
     if (!sentenceCase) { return; }
 
-    // Remove extra whitespace before splitting
-    ReduceWhitespace(ref input);
-
     string[] splitInput = input.Split(Space);
     for (int i = 0; i < splitInput.Length; i++)
     {
