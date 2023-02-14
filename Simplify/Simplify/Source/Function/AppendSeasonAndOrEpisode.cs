@@ -24,11 +24,11 @@ public static partial class Function
     }
   }
 
-  public static void AppendSeasonAndOrEpisodePost(ref string input, in bool smartEpisodeDash)
+  public static void AppendSeasonAndOrEpisodePost(ref string input, in bool smartEpisodeDash, in string prefix)
   {
     if (!smartEpisodeDash) { return; }
 
-    input = input.Replace(SeasonPlaceholderLeft, "- ");
+    input = input.Replace(SeasonPlaceholderLeft, $" {prefix} ");
     input = input.Replace(SeasonPlaceholderRight, SpaceString);
   }
 }

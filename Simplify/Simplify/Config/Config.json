@@ -16,8 +16,11 @@
   "SmartCapitalization": true,
   "OptimizeArticles": true,
   "RemoveNonAsciiCharacters": true,
-  "convertToLowercase": false,
-  "SmartEpisodeDash": true,
+
+  "AppendYear": false,
+  "AppendSeasonAndOrEpisode": true,
+  "SeasonAndOrEpisodePrefix": "-",
+
   "RemoveNumbers": false,
-  "AppendYear": false
+  "convertToLowercase": false
 }

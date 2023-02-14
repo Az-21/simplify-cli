@@ -71,8 +71,9 @@ public sealed record class JsonConfig(
   bool SmartCapitalization,
   bool OptimizeArticles,
   bool RemoveNonAsciiCharacters,
-  bool ConvertToLowercase,
-  bool SmartEpisodeDash,
+  bool AppendYear,
+  bool AppendSeasonAndOrEpisode,
+  string SeasonAndOrEpisodePrefix,
   bool RemoveNumbers,
-  bool AppendYear
+  bool ConvertToLowercase
 );
