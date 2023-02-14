@@ -7,6 +7,9 @@ public static partial class Function
   [GeneratedRegex(@"\D(19|20)\d{2}\D", RegexOptions.RightToLeft)]
   private static partial Regex FourDigitNumberStarting19or20Regex();
 
+  const string YearPlaceholderLeft = "#YPLeft#";
+  const string YearPlaceholderRight = "#YPRight";
+
   //Preserving release year for movie/series before BracketRemover functions
   public static void AppendYearPre(ref string input, in bool appendYear)
   {
@@ -26,8 +29,8 @@ public static partial class Function
       // Special case of year = 1920 where it is most probably resolution and not year
       if (year == "1920") { return; }
 
-      input = input.Remove(releaseYear.Index + 1, 4); // +1 to start from the first digit character
-      input += $" #YPL#{year}#YPR#"; // YearPlaceholder Left/Right
+      input = input.Remove(releaseYear.Index + 1, 4); // +1 to start from the first digit
+      input += SpaceString + YearPlaceholderLeft + year + YearPlaceholderRight;
     }
   }
 
@@ -36,7 +39,7 @@ public static partial class Function
   {
     if (!appendYear) { return; }
 
-    input = input.Replace("#YPL#", "(");
-    input = input.Replace("#YPR#", ")");
+    input = input.Replace(YearPlaceholderLeft, "(");
+    input = input.Replace(YearPlaceholderRight, ")");
   }
 }
