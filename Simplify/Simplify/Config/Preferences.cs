@@ -65,8 +65,6 @@ public sealed record class JsonConfig(
   bool RemoveCurlyBrackets,
   bool RemoveCurvedBrackets,
   bool RemoveSquareBrackets,
-  bool IsCliFriendly,
-  string CliSeparator,
   bool SentenceCase,
   bool SmartCapitalization,
   bool OptimizeArticles,

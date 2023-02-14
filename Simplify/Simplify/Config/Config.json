@@ -9,9 +9,6 @@
   "RemoveCurvedBrackets": true,
   "RemoveSquareBrackets": true,
 
-  "IsCliFriendly": false,
-  "CliSeparator": "-",
-
   "SentenceCase": false,
   "SmartCapitalization": true,
   "OptimizeArticles": true,

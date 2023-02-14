@@ -1,5 +1,4 @@
 ﻿namespace Simplify;
-
 public static class Rename
 {
   private static void ApplySimplificationFunctions(ref string filename)
@@ -22,7 +21,6 @@ public static class Rename
     Function.ReduceWhitespace(ref filename); // Upcoming functions will be faster without extra whitespaces
     Function.ConvertToSentenceCase(ref filename, Global.ImmutableConfig.SentenceCase, Global.ImmutableConfig.SmartCapitalization);
     Function.OptimizeArticles(ref filename, Global.ImmutableConfig.OptimizeArticles);
-    Simplify.ConvertToCliFriendly(ref filename);
     Function.ConvertToLowercase(ref filename, Global.ImmutableConfig.ConvertToLowercase);
   }
 
