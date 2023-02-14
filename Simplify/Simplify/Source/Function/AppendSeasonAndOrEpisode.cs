@@ -6,6 +6,9 @@ public static partial class Function
   [GeneratedRegex(@"(S\d+E\d+)|([ES]\d+)", RegexOptions.IgnoreCase | RegexOptions.RightToLeft)]
   private static partial Regex SeasonAndOrEpisodeRegex(); // S##E## || S## || E##
 
+  const string SeasonPlaceholderLeft = "#SEPLeft#";
+  const string SeasonPlaceholderRight = "#SEPRight#";
+
   public static void AppendSeasonAndOrEpisodePre(ref string input, in bool smartEpisodeDash)
   {
     if (!smartEpisodeDash) { return; }
@@ -16,8 +19,8 @@ public static partial class Function
       // Delete season/episode info
       input = input.Remove(match.Index, match.Length);
 
-      // Append uppercase version of season/episode info
-      input += $" #EPL#{match.Value.ToUpperInvariant()}#EPR#"; // EpisodePlaceholder Left/Right
+      // Append uppercase version of season/episode info with a space
+      input += SpaceString + SeasonPlaceholderLeft + match.Value.ToUpperInvariant() + SeasonPlaceholderRight;
     }
   }
 
@@ -25,7 +28,7 @@ public static partial class Function
   {
     if (!smartEpisodeDash) { return; }
 
-    input = input.Replace("#EPL", "- ");
-    input = input.Replace("#EPR", SpaceString);
+    input = input.Replace(SeasonPlaceholderLeft, "- ");
+    input = input.Replace(SeasonPlaceholderRight, SpaceString);
   }
 }
