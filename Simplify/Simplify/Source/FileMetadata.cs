@@ -10,7 +10,8 @@ public sealed class FileMetadata
 
   public FileMetadata(string fullPath)
   {
-    FullPath = fullPath;
+    // Windows will return path with "\", UNIX will return path with "/"
+    FullPath = fullPath.Replace('\\', '/');
 
     // Extrapolate
     Name = Path.GetFileNameWithoutExtension(FullPath);
@@ -28,10 +29,11 @@ public sealed class FolderMetadata
 
   public FolderMetadata(string fullPath)
   {
-    FullPath = fullPath;
+    // Windows will return path with "\", UNIX will return path with "/"
+    FullPath = fullPath.Replace('\\', '/');
 
     // Extrapolate
     ParentDirectory = Path.GetDirectoryName(FullPath)!;
-    Name = FullPath.Split('/')[^1]; // Get the last element (first from reverse)
+    Name = FullPath.Split('/').Last();
   }
 }
