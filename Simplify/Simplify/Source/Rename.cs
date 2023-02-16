@@ -24,15 +24,15 @@ public static class Rename
     Function.ConvertToLowercase(ref filename, Global.ImmutableConfig.ConvertToLowercase);
   }
 
-  public static void SimplifyFile(in RuntimeConfig runtimePreferences, string fullPath)
+  public static void SimplifyFile(in RuntimeConfig runtimePreferences, in string fullPath)
   {
     // Create file metadata object [creates an immutable object (record)]
-    var file = new FileMetadata(fullPath.Replace('\\', '/'));
+    FileMetadata file = new(fullPath);
     string filename = file.Name;
     ApplySimplificationFunctions(ref filename);
 
     // Full address of processed filename
-    string simplifiedFileAddress = $"{file.Directory}/{filename}{file.Extension}";
+    string simplifiedFileAddress = Path.Combine(file.Directory, $"{filename}{file.Extension}");
 
     // Already simplified form
     if (file.Name == filename)
@@ -49,6 +49,8 @@ public static class Rename
       {
         if (runtimePreferences.MakeChangesPermanent)
         {
+          // A -> B -> C is done to prevent case-insensitive rename
+          // Direct A -> C may result in `file.ext` -> `File.ext` which will throw an exception
           File.Move(file.FullPath, $"{file.Directory}/TEMP_SIMPLIFY_RENAME");
           File.Move($"{file.Directory}/TEMP_SIMPLIFY_RENAME", simplifiedFileAddress);
         }
@@ -73,15 +75,15 @@ public static class Rename
     }
   }
 
-  public static void SimplifyFolder(in RuntimeConfig runtimePreferences, string fullPath)
+  public static void SimplifyFolder(in RuntimeConfig runtimePreferences, in string fullPath)
   {
     // Create folder metadata object [creates an immutable object (record)]
-    var folder = new FolderMetadata(fullPath.Replace('\\', '/'));
+    FolderMetadata folder = new(fullPath);
     string rename = folder.Name;
     ApplySimplificationFunctions(ref rename);
 
-    // Full address of processed filename
-    string simplifiedFolderAddress = $"{folder.ParentDirectory}/{rename}";
+    // Full address of processed folder
+    string simplifiedFolderAddress = Path.Combine(folder.ParentDirectory, rename);
 
     // Already simplified form
     if (folder.Name == rename)
