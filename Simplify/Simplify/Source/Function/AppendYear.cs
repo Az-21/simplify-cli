@@ -39,7 +39,8 @@ public static partial class Function
   {
     if (!appendYear) { return; }
 
-    input = input.Replace(YearPlaceholderLeft, "(");
-    input = input.Replace(YearPlaceholderRight, ")");
+    input = input
+      .Replace(YearPlaceholderLeft, "(")
+      .Replace(YearPlaceholderRight, ")");
   }
 }

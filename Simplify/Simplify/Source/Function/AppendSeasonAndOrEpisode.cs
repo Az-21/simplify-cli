@@ -28,7 +28,8 @@ public static partial class Function
   {
     if (!smartEpisodeDash) { return; }
 
-    input = input.Replace(SeasonPlaceholderLeft, $" {prefix} ");
-    input = input.Replace(SeasonPlaceholderRight, SpaceString);
+    input = input
+      .Replace(SeasonPlaceholderLeft, $" {prefix} ")
+      .Replace(SeasonPlaceholderRight, SpaceString);
   }
 }
