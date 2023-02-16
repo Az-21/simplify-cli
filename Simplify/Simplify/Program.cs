@@ -22,13 +22,13 @@ public static class MainProgram
     // Rename folders
     if (RuntimeFlag.RenameFolders)
     {
-      string[] folders = Scan.Folders(LibraryPath);
+      IReadOnlyList<string> folders = Scan.Folders(LibraryPath);
       if (folders.Any() && Print.FolderConfirmation(folders, RuntimeFlag.MakeChangesPermanent))
       {
-        for (int i = folders.Length - 1; i >= 0; i--)
+        // WARNING: Reversed loop order because innermost folder must be renamed first
+        // Simplifying the outermost folder first will break address of inner folders
+        for (int i = folders.Count - 1; i >= 0; i--)
         {
-          // WARNING: Reversed loop order because innermost folder must be renamed first
-          // Simplifying the outermost folder first will break address of inner folders
           string fullPath = folders[i];
           Rename.SimplifyFolder(in RuntimeFlag, fullPath);
         }
@@ -37,7 +37,7 @@ public static class MainProgram
     }
 
     // Rename files
-    IEnumerable<string> files = Scan.Files(LibraryPath);
+    IReadOnlyList<string> files = Scan.Files(LibraryPath);
     if (files.Any() && Print.FilesConfirmation(files, RuntimeFlag.MakeChangesPermanent))
     {
       foreach (string fullPath in files)

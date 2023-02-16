@@ -57,12 +57,12 @@ public static class Print
     return CommonConfirmation(makeChangesPermanent);
   }
 
-  public static bool FolderConfirmation(string[] folders, bool makeChangesPermanent)
+  public static bool FolderConfirmation(IReadOnlyList<string> folders, bool makeChangesPermanent)
   {
     InfoBlock();
     Console.WriteLine("Following items will be affected");
 
-    for (int i = 0; i < folders.Length; i++) { Console.WriteLine(InfoText(folders[i])); }
+    for (int i = 0; i < folders.Count; i++) { Console.WriteLine(InfoText(folders[i])); }
     return CommonConfirmation(makeChangesPermanent);
   }
 

@@ -13,16 +13,19 @@ public static class Scan
   }
 
   // Crawl the directory to find files with required extension
-  public static IEnumerable<string> Files(string path)
+  public static IReadOnlyList<string> Files(string path)
   {
     // Invalid path check
     CheckIfDirectoryExists(path);
 
     // Load files in the directory
     string[] extensionList = Process.ConvertToExtensionList();
-    IEnumerable<string> files = Global.ImmutableConfig.GetAllDirectories ?
-        extensionList.SelectMany(f => Directory.GetFiles(path, f, SearchOption.AllDirectories)) :
-        extensionList.SelectMany(f => Directory.GetFiles(path, f, SearchOption.TopDirectoryOnly));
+
+    SearchOption searchOption = Global.ImmutableConfig.GetAllDirectories ?
+        SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+
+    IReadOnlyList<string> files =
+        extensionList.SelectMany(f => Directory.GetFiles(path, f, searchOption)).ToList();
 
     // No files found check | Equivalent to `files.isEmpty()`
     if (!files.Any())
@@ -35,20 +38,16 @@ public static class Scan
   }
 
   // Crawl the directory to find folders and subfolders
-  public static string[] Folders(string path)
+  public static IReadOnlyList<string> Folders(string path)
   {
-    string[] folders = Global.ImmutableConfig.GetAllDirectories ?
-        Directory.GetDirectories(path, "*", SearchOption.AllDirectories) :
-        Directory.GetDirectories(path, "*", SearchOption.TopDirectoryOnly);
+    SearchOption searchOption = Global.ImmutableConfig.GetAllDirectories ?
+          SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
 
-    for (int i = 0; i < folders.Length; i++)
-    {
-      folders[i] = folders[i].Replace("\\", "/");
-    }
+    IReadOnlyList<string> folders = Directory.GetDirectories(path, "*", searchOption);
 
-    // No folders found check
+    // No folders found check | Equivalent to `files.isEmpty()`
     if (!folders.Any())
-    {      // equivalent to `files.isEmpty()`
+    {
       Print.InfoBlock();
       Console.WriteLine($"No folder found in {Print.InfoText(path)}");
     }
