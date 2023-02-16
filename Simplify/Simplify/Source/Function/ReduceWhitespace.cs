@@ -11,6 +11,6 @@ public static partial class Function
   {
     input = TwoOrMoreWhitespaceRegex()
       .Replace(input, SpaceString)
-      .Trim(' ');
+      .Trim(Space);
   }
 }
