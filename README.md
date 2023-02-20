@@ -35,3 +35,7 @@ Generic Isekai - S01E07.mkv
 ## Get Started
 
 To start using simplify-cli, follow the [installation and usage guide](https://github.com/Az-21/simplify-cli/wiki).
+
+## Credits
+
+- Colorized output is handled using [Pastel](https://github.com/silkfire/Pastel).
