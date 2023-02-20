@@ -9,7 +9,7 @@
 </p>
 </b>
 
-<a href="https://github.com/Az-21/filename-simplifier/blob/main/LICENSE" alt="GPL 3.0">
+<a href="https://github.com/Az-21/simplify-cli/blob/main/LICENSE" alt="GPL 3.0">
 <img src="https://img.shields.io/github/license/Az-21/filename-simplifier?style=for-the-badge" /></a>
 <a href="" alt="C#11">
 <img src="https://img.shields.io/badge/Built%20With-C%20Sharp-%23630094?style=for-the-badge&logo=c-sharp" /></a>
