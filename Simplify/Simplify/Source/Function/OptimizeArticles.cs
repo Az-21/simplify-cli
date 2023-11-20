@@ -3,7 +3,7 @@
 // Article formatting (a, an, the, etc.)
 public static partial class Function
 {
-  private static readonly HashSet<string> Articles = new() { "a", "an", "the", "of", "and", "in" };
+  private static readonly HashSet<string> Articles = ["a", "an", "the", "of", "and", "in"];
   public static void OptimizeArticles(ref string input, in bool optimizeArticles)
   {
     if (!optimizeArticles) { return; }
