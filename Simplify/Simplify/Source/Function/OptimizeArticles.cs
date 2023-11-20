@@ -13,7 +13,9 @@ public static partial class Function
     {
       foreach (string article in Articles)
       {
-        if (splitFilename[i].ToLowerInvariant() == article) { splitFilename[i] = article; }
+        if (splitFilename[i].Equals(article, StringComparison.InvariantCultureIgnoreCase)) {
+          splitFilename[i] = article;
+        }
       }
     }
 
